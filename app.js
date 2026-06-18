@@ -379,6 +379,14 @@ function showScanResult(el, data, label) {
     '<span class="result-tag" style="background:' + C.text + '15;border:1px solid ' + C.text + '30;color:' + C.text + '">' + t + '</span>'
   ).join('');
 
+  function escapeHTML(str) {
+    return str.replace(/[&<>'"]/g, tag => ({
+      '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;'
+    }[tag] || tag));
+  }
+
+  const safeLabel = escapeHTML(label || '');
+
   const metersHtml = meters.length > 0 ? `
     <div style="margin-top:16px">
       <div style="font-family:var(--font-mono);font-size:10px;color:var(--muted);
@@ -407,7 +415,7 @@ function showScanResult(el, data, label) {
       </div>
       <div class="result-score" style="color:${C.text}">${score}<span style="font-size:14px;color:var(--muted)">/100</span></div>
     </div>
-    <div class="result-input">${(label || '').slice(0, 80)}${label && label.length > 80 ? '...' : ''}</div>
+    <div class="result-input">${safeLabel.slice(0, 80)}${safeLabel.length > 80 ? '...' : ''}</div>
     ${detail ? '<div class="result-detail">' + detail + '</div>' : ''}
     ${tagsHtml ? '<div class="result-tags">' + tagsHtml + '</div>' : ''}
     ${metersHtml}

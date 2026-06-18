@@ -117,7 +117,7 @@ APK_PAYLOADS = [
 UI_TESTS = [
     ("TC-UI-001", "Functionality", "Navigate to Try Scanner"),
     ("TC-UI-002", "Functionality", "Navigate to Features"),
-    ("TC-UI-003", "Functionality", "Navigate to How it Works"),
+    ("TC-UI-003", "Functionality", "Navigate to How It Works"),
     ("TC-UI-004", "Functionality", "Navigate to Stats"),
     ("TC-UI-005", "Functionality", "Navigate to Download"),
     ("TC-UI-006", "Functionality", "Switch to File Tab"),
@@ -172,7 +172,7 @@ class TestURLScanner:
 
         # Input payload
         input_elem.clear()
-        input_elem.send_keys(payload)
+        driver.execute_script("arguments[0].value = arguments[1];", input_elem, payload)
         
         # Click scan
         driver.execute_script("arguments[0].click();", btn_elem)
@@ -209,7 +209,7 @@ class TestEmailScanner:
         btn_elem = driver.find_element(By.ID, "btn-scan-email")
 
         input_elem.clear()
-        input_elem.send_keys(payload)
+        driver.execute_script("arguments[0].value = arguments[1];", input_elem, payload)
         
         driver.execute_script("arguments[0].click();", btn_elem)
         time.sleep(1)
@@ -245,7 +245,7 @@ class TestAPKScanner:
             assert input_elem.get_attribute("value") == payload
         else:
             input_elem.clear()
-            input_elem.send_keys(payload)
+            driver.execute_script("arguments[0].value = arguments[1];", input_elem, payload)
             
         driver.execute_script("arguments[0].click();", btn_elem)
         time.sleep(1)
@@ -280,7 +280,9 @@ class TestUIInteractions:
             faq_btn = driver.find_element(By.CSS_SELECTOR, ".faq-q")
             driver.execute_script("arguments[0].click();", faq_btn)
             time.sleep(0.5)
-            assert "active" in faq_btn.get_attribute("class")
+            # Find the parent .faq-item
+            faq_item = driver.find_element(By.CSS_SELECTOR, ".faq-item")
+            assert "open" in faq_item.get_attribute("class")
             
         elif "Mobile menu toggle" in desc:
             # Resize window to mobile size
