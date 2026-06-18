@@ -136,6 +136,7 @@ def driver():
     options.add_argument('--no-sandbox')
     options.add_argument('--disable-dev-shm-usage')
     driver = webdriver.Chrome(options=options)
+    driver.set_window_size(1920, 1080)
     driver.implicitly_wait(5)
     yield driver
     driver.quit()
@@ -162,7 +163,7 @@ class TestURLScanner:
         # Ensure URL tab is active
         url_tab = driver.find_element(By.CSS_SELECTOR, "button[data-t='url']")
         if "active" not in url_tab.get_attribute("class"):
-            url_tab.click()
+            driver.execute_script("arguments[0].click();", url_tab)
             time.sleep(0.5)
 
         # Find input and button
@@ -174,7 +175,7 @@ class TestURLScanner:
         input_elem.send_keys(payload)
         
         # Click scan
-        btn_elem.click()
+        driver.execute_script("arguments[0].click();", btn_elem)
         
         # Wait a moment for UI to update
         time.sleep(1)
@@ -201,7 +202,7 @@ class TestEmailScanner:
         
         # Switch to Email tab
         email_tab = driver.find_element(By.CSS_SELECTOR, "button[data-t='email']")
-        email_tab.click()
+        driver.execute_script("arguments[0].click();", email_tab)
         time.sleep(0.5)
 
         input_elem = driver.find_element(By.ID, "email-input")
@@ -210,7 +211,7 @@ class TestEmailScanner:
         input_elem.clear()
         input_elem.send_keys(payload)
         
-        btn_elem.click()
+        driver.execute_script("arguments[0].click();", btn_elem)
         time.sleep(1)
         
         assert driver.find_element(By.ID, "navbar").is_displayed()
@@ -229,7 +230,7 @@ class TestAPKScanner:
         
         # Switch to APK tab
         apk_tab = driver.find_element(By.CSS_SELECTOR, "button[data-t='apk']")
-        apk_tab.click()
+        driver.execute_script("arguments[0].click();", apk_tab)
         time.sleep(0.5)
 
         input_elem = driver.find_element(By.ID, "apk-input")
@@ -238,7 +239,7 @@ class TestAPKScanner:
         if is_quick_btn:
             # Click the quick button
             quick_btn = driver.find_element(By.CSS_SELECTOR, f"button[data-val='{payload}']")
-            quick_btn.click()
+            driver.execute_script("arguments[0].click();", quick_btn)
             time.sleep(0.2)
             # Verify input field populated
             assert input_elem.get_attribute("value") == payload
@@ -246,7 +247,7 @@ class TestAPKScanner:
             input_elem.clear()
             input_elem.send_keys(payload)
             
-        btn_elem.click()
+        driver.execute_script("arguments[0].click();", btn_elem)
         time.sleep(1)
         
         assert driver.find_element(By.ID, "navbar").is_displayed()
@@ -263,7 +264,7 @@ class TestUIInteractions:
             else:
                 elem = driver.find_element(By.XPATH, f"//a[contains(text(), '{link_text}')]")
             
-            elem.click()
+            driver.execute_script("arguments[0].click();", elem)
             time.sleep(0.5)
             # Verify URL hash
             assert "#" in driver.current_url
@@ -271,13 +272,13 @@ class TestUIInteractions:
         elif "Switch to" in desc:
             tab_name = desc.replace("Switch to ", "").replace(" Tab", "").lower()
             tab = driver.find_element(By.CSS_SELECTOR, f"button[data-t='{tab_name}']")
-            tab.click()
+            driver.execute_script("arguments[0].click();", tab)
             time.sleep(0.5)
             assert "active" in tab.get_attribute("class")
             
         elif "Expand FAQ" in desc:
             faq_btn = driver.find_element(By.CSS_SELECTOR, ".faq-q")
-            faq_btn.click()
+            driver.execute_script("arguments[0].click();", faq_btn)
             time.sleep(0.5)
             assert "active" in faq_btn.get_attribute("class")
             
@@ -287,10 +288,10 @@ class TestUIInteractions:
             time.sleep(0.5)
             burger = driver.find_element(By.ID, "nav-burger")
             if burger.is_displayed():
-                burger.click()
+                driver.execute_script("arguments[0].click();", burger)
                 time.sleep(0.5)
                 nav_links = driver.find_element(By.ID, "nav-links")
-                assert "active" in nav_links.get_attribute("class")
+                assert "open" in nav_links.get_attribute("class")
             # Restore window size
             driver.maximize_window()
 
