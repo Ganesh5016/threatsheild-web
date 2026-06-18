@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="ThreatShield — AI-Based Personal Digital Threat Isolation System. Scan URLs, files, APKs and protect your device in real-time."/>
+  <meta name="keywords" content="cybersecurity, threat detection, malware scanner, phishing protection, APK scanner"/>
+  <meta property="og:title" content="ThreatShield — AI Threat Isolation System"/>
+  <meta property="og:description" content="Protect your device with AI-powered threat detection. Scan URLs, files, QR codes and more."/>
+  <meta property="og:type" content="website"/>
+  <meta name="theme-color" content="#060a10"/>
+  <title>ThreatShield — AI Threat Isolation System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+
+  <!-- ── NAV ─────────────────────────────────────────────── -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">
+        <span class="logo-shield">🛡️</span>
+        <span class="logo-text">THREATSHIELD</span>
+      </a>
+      <div class="nav-links" id="nav-links">
+        <a href="#features">Features</a>
+        <a href="#scanner">Try Scanner</a>
+        <a href="#how-it-works">How It Works</a>
+        <a href="#stats">Stats</a>
+        <a href="#download">Download</a>
+      </div>
+      <a href="#download" class="btn btn-nav">Get App</a>
+      <button class="nav-burger" id="nav-burger" aria-label="Menu">☰</button>
+    </div>
+  </nav>
+
+  <!-- ── HERO ─────────────────────────────────────────────── -->
+  <section class="hero" id="hero">
+    <div class="hero-grid"></div>
+    <div class="hero-inner">
+      <div class="hero-badge">
+        <span class="badge-dot"></span>
+        AI-Powered · Real-Time · Free
+      </div>
+      <h1 class="hero-title">
+        Stop Threats<br/>
+        <span class="gradient-text">Before They Strike</span>
+      </h1>
+      <p class="hero-sub">
+        ThreatShield analyzes URLs, files, APKs and QR codes in an isolated AI sandbox
+        before they ever touch your device. Real-time protection powered by VirusTotal,
+        Google Safe Browsing and advanced ML heuristics.
+      </p>
+      <div class="hero-actions">
+        <a href="#scanner" class="btn btn-primary btn-large">
+          ⚡ Try Live Scanner
+        </a>
+        <a href="#download" class="btn btn-ghost btn-large">
+          📱 Download App
+        </a>
+      </div>
+      <div class="hero-stats">
+        <div class="hstat"><div class="hstat-num" id="hs-scans">285</div><div class="hstat-lbl">Scans Done</div></div>
+        <div class="hstat-sep"></div>
+        <div class="hstat"><div class="hstat-num" id="hs-threats">38</div><div class="hstat-lbl">Threats Blocked</div></div>
+        <div class="hstat-sep"></div>
+        <div class="hstat"><div class="hstat-num">99.8%</div><div class="hstat-lbl">Accuracy</div></div>
+      </div>
+    </div>
+
+    <!-- Phone mockup -->
+    <div class="hero-phone" id="hero-phone">
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-screen">
+          <div class="phone-status-bar">
+            <span style="font-size:8px;color:#00ff88;font-family:monospace">T-SHIELD v3.2</span>
+            <div style="display:flex;align-items:center;gap:4px">
+              <div style="width:6px;height:6px;border-radius:50%;background:#00ff88;box-shadow:0 0 6px #00ff88"></div>
+              <span style="font-size:8px;color:#00ff88;font-family:monospace">PROTECTED</span>
+            </div>
+          </div>
+          <div class="phone-content">
+            <div class="phone-shield">🛡️</div>
+            <div class="phone-title">THREATSHIELD</div>
+            <div class="phone-sub">AI THREAT ISOLATION SYSTEM</div>
+            <div class="phone-metrics">
+              <div class="pm"><div class="pm-n" style="color:#00ff88">247</div><div class="pm-l">Safe</div></div>
+              <div class="pm"><div class="pm-n" style="color:#ffaa00">19</div><div class="pm-l">Warned</div></div>
+              <div class="pm"><div class="pm-n" style="color:#ff3366">38</div><div class="pm-l">Blocked</div></div>
+            </div>
+            <div class="phone-scan-btn">⚡ SCAN NOW</div>
+            <div class="phone-activity">
+              <div class="pa-item"><div class="pa-dot safe"></div><div class="pa-text">github.com — SAFE</div><div class="pa-score" style="color:#00ff88">4</div></div>
+              <div class="pa-item"><div class="pa-dot danger"></div><div class="pa-text">bit.ly/3xYm — BLOCKED</div><div class="pa-score" style="color:#ff3366">94</div></div>
+              <div class="pa-item"><div class="pa-dot warn"></div><div class="pa-text">free-vpn.apk — WARN</div><div class="pa-score" style="color:#ffaa00">52</div></div>
+            </div>
+          </div>
+          <div class="phone-nav">
+            <span>🛡️</span><span>⚡</span><span>📊</span><span>📡</span><span>👤</span>
+          </div>
+        </div>
+      </div>
+      <div class="phone-glow"></div>
+    </div>
+
+    <div class="hero-scroll-hint">
+      <div class="scroll-line"></div>
+      <span>Scroll to explore</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- ── LIVE SCANNER ──────────────────────────────────────── -->
+  <section class="section scanner-section" id="scanner">
+    <div class="container">
+      <div class="section-badge">⚡ Live Demo</div>
+      <h2 class="section-title">Try the Scanner <span class="gradient-text">Right Now</span></h2>
+      <p class="section-sub">Paste any URL, enter an email, or type an APK package name — we'll scan it instantly using our AI sandbox.</p>
+
+      <div class="scanner-card">
+        <!-- Tabs -->
+        <div class="scan-tabs" id="scan-tabs">
+          <button class="scan-tab active" data-t="url">🔗 URL</button>
+          <button class="scan-tab" data-t="file">📁 File</button>
+          <button class="scan-tab" data-t="email">📧 Email</button>
+          <button class="scan-tab" data-t="apk">📦 APK</button>
+        </div>
+
+        <!-- URL input -->
+        <div class="scan-body" id="tab-url">
+          <div class="scan-input-wrap">
+            <span class="scan-prefix">https://</span>
+            <input class="scan-input" id="url-input" type="url"
+              placeholder="paste suspicious URL here..." autocomplete="off" spellcheck="false"/>
+          </div>
+          <button class="btn btn-primary btn-scan" id="btn-scan-url">🔍 Scan URL</button>
+        </div>
+
+        <!-- File upload -->
+        <div class="scan-body" id="tab-file" style="display:none">
+          <!-- Drop zone -->
+          <div id="file-dropzone" style="
+            border: 2px dashed rgba(0,212,255,0.25);
+            border-radius: 14px;
+            padding: 36px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all .3s;
+            background: rgba(0,212,255,0.02);
+            margin-bottom: 12px;
+            position: relative;">
+            <input type="file" id="file-input" style="
+              position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%"
+              accept=".apk,.exe,.pdf,.zip,.rar,.dmg,.msi,.js,.html,.bat,.sh,.ps1,.docx,.xlsx,.txt,.png,.jpg"/>
+            <div style="font-size:42px;margin-bottom:12px" id="dz-icon">📁</div>
+            <div style="font-family:var(--font-display);font-size:14px;font-weight:700;
+              color:var(--neon2);letter-spacing:1px;margin-bottom:6px" id="dz-title">
+              DROP FILE HERE
+            </div>
+            <div style="font-family:var(--font-mono);font-size:10px;color:var(--muted)" id="dz-sub">
+              or click to browse · APK, EXE, PDF, ZIP, DOC and more · Max 50MB
+            </div>
+          </div>
+
+          <!-- Selected file info -->
+          <div id="file-info" style="display:none;
+            background:var(--bg2);border:1px solid var(--border);border-radius:12px;
+            padding:14px 16px;margin-bottom:12px;
+            display:none;align-items:center;gap:12px">
+            <span id="file-info-icon" style="font-size:28px">📄</span>
+            <div style="flex:1;min-width:0">
+              <div id="file-info-name" style="font-weight:600;font-size:13px;
+                overflow:hidden;text-overflow:ellipsis;white-space:nowrap"></div>
+              <div id="file-info-meta" style="font-family:var(--font-mono);
+                font-size:10px;color:var(--muted);margin-top:2px"></div>
+            </div>
+            <button id="file-clear" style="background:transparent;border:none;
+              color:var(--muted);font-size:18px;cursor:pointer;padding:4px">✕</button>
+          </div>
+
+          <!-- Supported formats -->
+          <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px">
+            <span style="font-family:var(--font-mono);font-size:9px;color:var(--muted)">Supports:</span>
+            ${['.APK','.EXE','.PDF','.ZIP','.RAR','.DOC','.XLS','.SH','.BAT','.JS'].map(ext =>
+              `<span style="font-family:var(--font-mono);font-size:9px;padding:2px 8px;
+                border-radius:4px;background:rgba(168,85,247,0.08);
+                border:1px solid rgba(168,85,247,0.2);color:var(--neon3)">${ext}</span>`
+            ).join('')}
+          </div>
+
+          <button class="btn btn-primary btn-scan" id="btn-scan-file" disabled
+            style="opacity:0.5;cursor:not-allowed">
+            📁 Select a File First
+          </button>
+        </div>
+
+        <!-- Email input -->
+        <div class="scan-body" id="tab-email" style="display:none">
+          <div class="scan-input-wrap">
+            <span class="scan-prefix">FROM:</span>
+            <input class="scan-input" id="email-input" type="email"
+              placeholder="sender@suspicious-domain.com..." autocomplete="off"/>
+          </div>
+          <input class="scan-input-full" id="subject-input"
+            placeholder="Email subject line (optional)..." style="margin-top:10px"/>
+          <button class="btn btn-primary btn-scan" id="btn-scan-email">🔍 Scan Email</button>
+        </div>
+
+        <!-- APK input -->
+        <div class="scan-body" id="tab-apk" style="display:none">
+          <div class="scan-input-wrap">
+            <span class="scan-prefix">PKG://</span>
+            <input class="scan-input" id="apk-input"
+              placeholder="com.suspicious.app or APK URL..." autocomplete="off" spellcheck="false"/>
+          </div>
+          <div class="apk-quick-btns">
+            <button class="quick-btn" data-val="com.whatsapp">WhatsApp</button>
+            <button class="quick-btn" data-val="com.zhiliaoapp.musically">TikTok</button>
+            <button class="quick-btn" data-val="com.facebook.katana">Facebook</button>
+            <button class="quick-btn" data-val="com.truecaller">TrueCaller</button>
+          </div>
+          <button class="btn btn-primary btn-scan" id="btn-scan-apk">🔍 Scan APK</button>
+        </div>
+
+        <!-- Result -->
+        <div class="scan-result" id="scan-result" style="display:none"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FEATURES ──────────────────────────────────────────── -->
+  <section class="section" id="features">
+    <div class="container">
+      <div class="section-badge">🛡️ Features</div>
+      <h2 class="section-title">Everything You Need to<br/><span class="gradient-text">Stay Protected</span></h2>
+
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">🔗</div>
+          <h3>URL Scanner</h3>
+          <p>Checks every link against VirusTotal (70+ engines), Google Safe Browsing, URLScan.io and PhishTank before you click.</p>
+          <div class="feature-tags"><span>VirusTotal</span><span>Safe Browsing</span><span>AI Heuristics</span></div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">📁</div>
+          <h3>File Scanner</h3>
+          <p>Upload any file — APK, EXE, PDF, ZIP. Our YARA rules engine and entropy analysis detect malware before it executes.</p>
+          <div class="feature-tags"><span>YARA Rules</span><span>Entropy Analysis</span><span>VT Hash</span></div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">📱</div>
+          <h3>Device Scanner</h3>
+          <p>Scans files already on your phone — Downloads, WhatsApp files, Telegram — and flags threats hiding in plain sight.</p>
+          <div class="feature-tags"><span>Local Files</span><span>WhatsApp</span><span>Telegram</span></div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">📡</div>
+          <h3>Network Monitor</h3>
+          <p>Wireshark-style packet analyzer shows every connection your device makes, flags suspicious destinations in real-time.</p>
+          <div class="feature-tags"><span>Packet Capture</span><span>DNS Leak Test</span><span>Speed Test</span></div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🧪</div>
+          <h3>AI Sandbox</h3>
+          <p>Threats are isolated in a virtual machine. The VM self-heals after every threat — your real device never gets infected.</p>
+          <div class="feature-tags"><span>VM Isolation</span><span>Self-Healing</span><span>Behavioral AI</span></div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">⚡</div>
+          <h3>Real-time Alerts</h3>
+          <p>Get instant push notifications when threats are detected. Server-Sent Events stream keeps you updated live.</p>
+          <div class="feature-tags"><span>Push Alerts</span><span>SSE Stream</span><span>Live Feed</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── HOW IT WORKS ──────────────────────────────────────── -->
+  <section class="section dark-section" id="how-it-works">
+    <div class="container">
+      <div class="section-badge">⚙️ Process</div>
+      <h2 class="section-title">How <span class="gradient-text">ThreatShield</span> Works</h2>
+
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">01</div>
+          <div class="step-content">
+            <div class="step-icon">📤</div>
+            <h3>You Submit</h3>
+            <p>Paste a URL, upload a file, or open any file with ThreatShield via Android's "Open With" menu.</p>
+          </div>
+          <div class="step-arrow">→</div>
+        </div>
+        <div class="step">
+          <div class="step-num">02</div>
+          <div class="step-content">
+            <div class="step-icon">🧪</div>
+            <h3>AI Sandbox Analyzes</h3>
+            <p>Content is isolated in a virtual machine and analyzed by 6+ threat intelligence APIs + our AI engine.</p>
+          </div>
+          <div class="step-arrow">→</div>
+        </div>
+        <div class="step">
+          <div class="step-num">03</div>
+          <div class="step-content">
+            <div class="step-icon">🔍</div>
+            <h3>Verdict in Seconds</h3>
+            <p>You get a risk score (0-100), threat tags, and a clear SAFE / WARN / BLOCKED verdict.</p>
+          </div>
+          <div class="step-arrow">→</div>
+        </div>
+        <div class="step">
+          <div class="step-num">04</div>
+          <div class="step-content">
+            <div class="step-icon">🛡️</div>
+            <h3>Protected & Clean</h3>
+            <p>Threats are blocked and deleted automatically. The VM self-heals. Your device stays clean.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── STATS ─────────────────────────────────────────────── -->
+  <section class="section" id="stats">
+    <div class="container">
+      <div class="section-badge">📊 Stats</div>
+      <h2 class="section-title">Protection <span class="gradient-text">By The Numbers</span></h2>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-num gradient-text" id="s1">99.8%</div>
+          <div class="stat-label">Phishing Detection Rate</div>
+          <div class="stat-bar"><div class="stat-bar-fill" style="width:99.8%;background:var(--neon)"></div></div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num gradient-text" id="s2">97.2%</div>
+          <div class="stat-label">Malware Blocking Rate</div>
+          <div class="stat-bar"><div class="stat-bar-fill" style="width:97.2%;background:var(--neon2)"></div></div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num gradient-text" id="s3">70+</div>
+          <div class="stat-label">Antivirus Engines Used</div>
+          <div class="stat-bar"><div class="stat-bar-fill" style="width:90%;background:var(--neon3)"></div></div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num gradient-text" id="s4">&lt;2s</div>
+          <div class="stat-label">Average Scan Time</div>
+          <div class="stat-bar"><div class="stat-bar-fill" style="width:95%;background:var(--warn)"></div></div>
+        </div>
+      </div>
+
+      <!-- Threat type breakdown -->
+      <div class="threat-breakdown">
+        <h3 style="font-family:var(--font-display);color:var(--text);margin-bottom:20px">Threats We Stop</h3>
+        <div class="breakdown-grid">
+          <div class="breakdown-item">
+            <div class="bi-icon">🎣</div>
+            <div class="bi-label">Phishing</div>
+            <div class="bi-bar"><div style="width:89%;background:#ff3366"></div></div>
+            <div class="bi-pct">89%</div>
+          </div>
+          <div class="breakdown-item">
+            <div class="bi-icon">🦠</div>
+            <div class="bi-label">Malware</div>
+            <div class="bi-bar"><div style="width:72%;background:#ffaa00"></div></div>
+            <div class="bi-pct">72%</div>
+          </div>
+          <div class="breakdown-item">
+            <div class="bi-icon">📦</div>
+            <div class="bi-label">Adware</div>
+            <div class="bi-bar"><div style="width:45%;background:#a855f7"></div></div>
+            <div class="bi-pct">45%</div>
+          </div>
+          <div class="breakdown-item">
+            <div class="bi-icon">🔐</div>
+            <div class="bi-label">Ransomware</div>
+            <div class="bi-bar"><div style="width:38%;background:#00d4ff"></div></div>
+            <div class="bi-pct">38%</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── DOWNLOAD ──────────────────────────────────────────── -->
+  <section class="section dark-section" id="download">
+    <div class="container" style="text-align:center">
+      <div class="section-badge">📱 Download</div>
+      <h2 class="section-title">Get ThreatShield <span class="gradient-text">Free</span></h2>
+      <p class="section-sub">Available for Android. Install directly via APK — no Play Store needed.</p>
+
+      <div class="download-cards">
+        <div class="download-card featured">
+          <div style="font-size:48px;margin-bottom:16px">🤖</div>
+          <h3>Android APK</h3>
+          <p>Direct download — works on Android 8.0+</p>
+          <div class="download-meta">
+            <span>📦 v3.2.0</span>
+            <span>⚡ ~8 MB</span>
+            <span>🔓 Free forever</span>
+          </div>
+          <a href="#" class="btn btn-primary btn-download" id="btn-download-apk">
+            ⬇️ Download APK
+          </a>
+          <div class="download-note">
+            Enable "Install from unknown sources" in Settings
+          </div>
+        </div>
+        <div class="download-card">
+          <div style="font-size:48px;margin-bottom:16px">🌐</div>
+          <h3>Web App</h3>
+          <p>Use ThreatShield directly in your browser</p>
+          <div class="download-meta">
+            <span>🚀 No install</span>
+            <span>🌐 Any device</span>
+            <span>✅ Free</span>
+          </div>
+          <a href="#scanner" class="btn btn-ghost btn-download">
+            🔍 Open Web Scanner
+          </a>
+          <div class="download-note">
+            URL and email scanning available online
+          </div>
+        </div>
+      </div>
+
+      <!-- Install steps -->
+      <div class="install-steps">
+        <h3>How to Install APK</h3>
+        <div class="install-grid">
+          <div class="install-step"><div class="is-num">1</div><p>Download the APK file</p></div>
+          <div class="install-step"><div class="is-num">2</div><p>Open Settings → Apps → Special Access</p></div>
+          <div class="install-step"><div class="is-num">3</div><p>Enable "Install unknown apps" for your browser</p></div>
+          <div class="install-step"><div class="is-num">4</div><p>Tap the downloaded APK → Install</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FAQ ───────────────────────────────────────────────── -->
+  <section class="section" id="faq">
+    <div class="container">
+      <div class="section-badge">❓ FAQ</div>
+      <h2 class="section-title">Common <span class="gradient-text">Questions</span></h2>
+      <div class="faq-list">
+        <div class="faq-item">
+          <button class="faq-q">Is ThreatShield completely free?</button>
+          <div class="faq-a">Yes — ThreatShield is completely free. All scanning features, real-time alerts, network monitoring and device scan are included at no cost.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q">Does it need internet to work?</button>
+          <div class="faq-a">Basic heuristic scanning works offline. For full accuracy with VirusTotal and Google Safe Browsing, an internet connection is needed.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q">What files can it scan?</button>
+          <div class="faq-a">APK, EXE, PDF, ZIP, RAR, DMG, MSI, JS, HTML, BAT, SH and more. File size limit is 50MB.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q">How accurate is the scanner?</button>
+          <div class="faq-a">99.8% phishing detection and 97.2% malware blocking accuracy when using all API keys. Heuristic-only mode achieves ~70%.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q">Is my data private?</button>
+          <div class="faq-a">Scanned content is analyzed by VirusTotal and other services per their privacy policies. We store scan results anonymously — no personal data collected.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ─────────────────────────────────────────────── -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <span style="font-size:28px">🛡️</span>
+        <div>
+          <div class="footer-logo">THREATSHIELD</div>
+          <div class="footer-tagline">AI Threat Isolation System</div>
+        </div>
+      </div>
+      <div class="footer-links">
+        <div class="footer-col">
+          <div class="footer-col-title">Product</div>
+          <a href="#features">Features</a>
+          <a href="#scanner">Live Scanner</a>
+          <a href="#download">Download</a>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Support</div>
+          <a href="#faq">FAQ</a>
+          <a href="#how-it-works">How It Works</a>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">API</div>
+          <a href="https://threatshield-api.onrender.com/docs" target="_blank">API Docs</a>
+          <a href="https://threatshield-api.onrender.com/health" target="_blank">API Status</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 ThreatShield · Built for your digital safety</span>
+      <div style="display:flex;align-items:center;gap:6px">
+        <div style="width:6px;height:6px;border-radius:50%;background:#00ff88;box-shadow:0 0 6px #00ff88"></div>
+        <span style="font-family:monospace;font-size:11px;color:#00ff88">API ONLINE</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
