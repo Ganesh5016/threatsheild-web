@@ -34,6 +34,7 @@ jobs:
         pip install openpyxl pandas
         cd selenium-tests && npm install
         cd ../appium-tests && npm install
+        cd ../load-tests && npm install
 
     - name: Start Local Web Server
       run: |
@@ -50,20 +51,33 @@ jobs:
       run: |
         cd selenium-tests
         npm run test:single
+        python generate_excel_report.py
 
     - name: Run Appium E2E Tests
       run: |
         cd appium-tests
         npm run test:single
+        python generate_appium_excel_report.py
 
-    - name: 📊 Generate Master 3-in-1 Excel Test Report (730 Test Cases - 100% PASS)
+    - name: Run Baseline Load Tests
+      run: |
+        cd load-tests
+        node baseline-load-test.js
+        python generate_load_test_report.py
+
+    - name: Generate Master 4-in-1 Excel Test Report
       run: |
         python generate_master_excel_report.py
 
-    - name: 📤 Upload Master 3-in-1 Excel Report Artifact
+    - name: Upload All 4 Excel Reports Artifact Bundle
       if: always()
       uses: actions/upload-artifact@v4
       with:
-        name: Master_ThreatShield_E2E_Test_Report_100Percent_Pass
-        path: Master_ThreatShield_E2E_Test_Report.xlsx
+        name: All_4_Excel_Test_Reports_Bundle
+        path: |
+          reports/*.xlsx
+          selenium-tests/Selenium_Login_E2E_Test_Report.xlsx
+          appium-tests/Appium_Mobile_App_E2E_Test_Report.xlsx
+          load-tests/Baseline_Load_Test_Report.xlsx
+          Master_ThreatShield_E2E_Test_Report.xlsx
         retention-days: 30

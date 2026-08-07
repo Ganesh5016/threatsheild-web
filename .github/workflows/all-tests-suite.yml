@@ -1,0 +1,137 @@
+name: All 4 Testing Suites & Complete Excel Reports Artifact Pipeline
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  pull_request:
+    branches:
+      - main
+      - master
+  workflow_dispatch:
+
+jobs:
+  all-tests-pipeline:
+    name: Run All 4 Test Suites & Publish All Excel Test Reports
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Checkout Repository Code
+        uses: actions/checkout@v4
+
+      - name: ⚙️ Setup Node.js Environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: 🐍 Setup Python Environment
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: 🌐 Install Chrome Browser & System Dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y google-chrome-stable
+          google-chrome --version
+
+      - name: 📦 Install All Node & Python Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r tests/requirements.txt || true
+          pip install openpyxl pandas
+          cd selenium-tests && npm install
+          cd ../appium-tests && npm install
+          cd ../load-tests && npm install
+
+      - name: 🚀 Start Local Web Frontend & API Server
+        run: |
+          python -m http.server 8000 &
+          sleep 3
+          curl -I http://localhost:8000/login.html || true
+
+      - name: 🧪 1. Run PyTest API & System Integration Suite
+        run: |
+          pytest tests/test_e2e.py -v || true
+
+      - name: 🧪 2. Run Selenium Web Frontend E2E Suite (300+ Tests)
+        env:
+          BASE_URL: "http://localhost:8000/login.html"
+        run: |
+          cd selenium-tests
+          npm run test:single
+          python generate_excel_report.py
+
+      - name: 🧪 3. Run Appium Mobile App E2E Suite (300+ Tests)
+        run: |
+          cd appium-tests
+          npm run test:single
+          python generate_appium_excel_report.py
+
+      - name: ⚡ 4. Run Baseline Load Test Suite (100 VUs, 1 Min)
+        env:
+          TARGET_URL: "http://localhost:8000/login.html"
+          VUS: "100"
+          DURATION: "60"
+        run: |
+          cd load-tests
+          node baseline-load-test.js
+          python generate_load_test_report.py
+
+      - name: 📊 5. Generate Master Consolidated 4-in-1 Excel Report
+        run: |
+          python generate_master_excel_report.py
+
+      - name: 📤 Upload ALL 4 Excel Test Reports Bundle
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: All_4_Excel_Test_Reports_Bundle
+          path: |
+            reports/*.xlsx
+            selenium-tests/Selenium_Login_E2E_Test_Report.xlsx
+            appium-tests/Appium_Mobile_App_E2E_Test_Report.xlsx
+            load-tests/Baseline_Load_Test_Report.xlsx
+            Master_ThreatShield_E2E_Test_Report.xlsx
+          retention-days: 30
+
+      - name: 📤 Upload 1. PyTest Excel Report Artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: 1_PyTest_API_Integration_Excel_Report
+          path: reports/*.xlsx
+          retention-days: 30
+
+      - name: 📤 Upload 2. Selenium Web E2E Excel Report Artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: 2_Selenium_Web_E2E_Excel_Report
+          path: selenium-tests/Selenium_Login_E2E_Test_Report.xlsx
+          retention-days: 30
+
+      - name: 📤 Upload 3. Appium Mobile E2E Excel Report Artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: 3_Appium_Mobile_E2E_Excel_Report
+          path: appium-tests/Appium_Mobile_App_E2E_Test_Report.xlsx
+          retention-days: 30
+
+      - name: 📤 Upload 4. Baseline Load Test Excel Report Artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: 4_Baseline_Load_Test_Excel_Report
+          path: load-tests/Baseline_Load_Test_Report.xlsx
+          retention-days: 30
+
+      - name: 📤 Upload Master 4-in-1 Consolidated Report Artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: Master_Consolidated_All_Suites_Excel_Report
+          path: Master_ThreatShield_E2E_Test_Report.xlsx
+          retention-days: 30
