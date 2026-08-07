@@ -1,0 +1,23 @@
+{
+  "name": "load-tests",
+  "version": "1.0.0",
+  "description": "Baseline & High-Concurrency Load Testing Suite for ThreatShield Backend API (100 VUs, 1 min duration)",
+  "main": "baseline-load-test.js",
+  "scripts": {
+    "test:load": "node baseline-load-test.js",
+    "report:excel": "python generate_load_test_report.py"
+  },
+  "keywords": [
+    "load-testing",
+    "performance",
+    "benchmark",
+    "rps",
+    "latency",
+    "threatshield"
+  ],
+  "author": "Performance & Security QA Engineering Team",
+  "license": "ISC",
+  "dependencies": {
+    "autocannon": "^7.12.0"
+  }
+}
