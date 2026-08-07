@@ -30,10 +30,14 @@
         <a href="#stats">Stats</a>
         <a href="#download">Download</a>
       </div>
-      <a href="#download" class="btn btn-nav">Get App</a>
+      <div style="display:flex;align-items:center;gap:10px" id="nav-auth-container">
+        <a href="login.html" class="btn btn-ghost" id="btn-nav-login" style="padding:6px 14px;font-size:13px">Login</a>
+        <a href="register.html" class="btn btn-nav" id="btn-nav-register" style="padding:6px 14px;font-size:13px">Register</a>
+      </div>
       <button class="nav-burger" id="nav-burger" aria-label="Menu">☰</button>
     </div>
   </nav>
+
 
   <!-- ── HERO ─────────────────────────────────────────────── -->
   <section class="hero" id="hero">
@@ -509,5 +513,39 @@
   </footer>
 
   <script src="app.js"></script>
+  <script type="module">
+    import { auth, onAuthStateChanged, signOut } from "./firebase-config.js";
+
+    onAuthStateChanged(auth, async (user) => {
+      const container = document.getElementById("nav-auth-container");
+      if (user) {
+        const token = await user.getIdToken();
+        localStorage.setItem("ts_token", token);
+        localStorage.setItem("ts_user", JSON.stringify({ uid: user.uid, email: user.email }));
+        
+        container.innerHTML = `
+          <div style="display:flex;align-items:center;gap:10px;">
+            <span style="font-family:var(--font-mono);font-size:12px;color:var(--neon2);">👤 ${user.email.split('@')[0]}</span>
+            <button id="btn-logout" class="btn btn-ghost" style="padding:4px 10px;font-size:12px">Logout</button>
+          </div>
+        `;
+
+        document.getElementById("btn-logout")?.addEventListener("click", async () => {
+          await signOut(auth);
+          localStorage.removeItem("ts_token");
+          localStorage.removeItem("ts_user");
+          window.location.reload();
+        });
+      } else {
+        localStorage.removeItem("ts_token");
+        localStorage.removeItem("ts_user");
+        container.innerHTML = `
+          <a href="login.html" class="btn btn-ghost" id="btn-nav-login" style="padding:6px 14px;font-size:13px">Login</a>
+          <a href="register.html" class="btn btn-nav" id="btn-nav-register" style="padding:6px 14px;font-size:13px">Register</a>
+        `;
+      }
+    });
+  </script>
 </body>
 </html>
+

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login — ThreatShield</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="styles.css"/>
+  <style>
+    .auth-container {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      position: relative;
+    }
+    .auth-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 40px;
+      width: 100%;
+      max-width: 440px;
+      box-shadow: 0 0 40px rgba(0, 212, 255, 0.08);
+      position: relative;
+      z-index: 2;
+    }
+    .auth-header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .auth-title {
+      font-family: var(--font-display);
+      font-size: 24px;
+      font-weight: 700;
+      margin-top: 12px;
+      margin-bottom: 6px;
+    }
+    .auth-subtitle {
+      font-size: 14px;
+      color: var(--text2);
+    }
+    .auth-form {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .form-group label {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--text2);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .auth-input {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px 16px;
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 15px;
+      outline: none;
+      transition: all 0.3s;
+    }
+    .auth-input:focus {
+      border-color: var(--neon2);
+      box-shadow: 0 0 12px rgba(0, 212, 255, 0.2);
+    }
+    .auth-error {
+      background: rgba(255, 51, 102, 0.1);
+      border: 1px solid var(--danger);
+      color: var(--danger);
+      padding: 10px;
+      border-radius: 8px;
+      font-size: 13px;
+      display: none;
+      text-align: center;
+    }
+    .auth-footer {
+      text-align: center;
+      margin-top: 24px;
+      font-size: 14px;
+      color: var(--text2);
+    }
+    .auth-footer a {
+      color: var(--neon2);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .auth-footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="auth-container">
+    <div class="auth-card">
+      <div class="auth-header">
+        <a href="index.html" style="text-decoration: none;">
+          <span style="font-size: 42px;">🛡️</span>
+        </a>
+        <h1 class="auth-title">Welcome Back</h1>
+        <p class="auth-subtitle">Sign in to sync account details & scan history</p>
+      </div>
+
+      <div class="auth-error" id="auth-error"></div>
+
+      <form class="auth-form" id="login-form">
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" class="auth-input" placeholder="user@example.com" required />
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" class="auth-input" placeholder="••••••••" required />
+        </div>
+        <button type="submit" class="btn btn-primary btn-large" style="width: 100%; margin-top: 8px;" id="btn-submit">
+          ⚡ Sign In
+        </button>
+      </form>
+
+      <div class="auth-footer">
+        Don't have an account? <a href="register.html">Create Account</a>
+      </div>
+    </div>
+  </div>
+
+  <script type="module">
+    import { auth, signInWithEmailAndPassword } from "./firebase-config.js";
+
+    const form = document.getElementById("login-form");
+    const errorEl = document.getElementById("auth-error");
+    const submitBtn = document.getElementById("btn-submit");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      errorEl.style.display = "none";
+      submitBtn.disabled = true;
+      submitBtn.innerText = "Signing in...";
+
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+
+      try {
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        const token = await userCredential.user.getIdToken();
+        localStorage.setItem("ts_token", token);
+        localStorage.setItem("ts_user", JSON.stringify({
+          uid: userCredential.user.uid,
+          email: userCredential.user.email
+        }));
+        window.location.href = "index.html";
+      } catch (error) {
+        errorEl.innerText = error.message.replace("Firebase: ", "");
+        errorEl.style.display = "block";
+        submitBtn.disabled = false;
+        submitBtn.innerText = "⚡ Sign In";
+      }
+    });
+  </script>
+</body>
+</html>

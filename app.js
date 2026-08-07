@@ -215,11 +215,16 @@ async function runScan(type, payload) {
       ? { sender: payload.sender, subject: payload.subject }
       : { url: payload.url };
 
+    const token = localStorage.getItem('ts_token');
+    const headers = { 'Content-Type': 'application/json', 'ngrok-skip-browser-warning': 'true' };
+    if (token) headers['Authorization'] = 'Bearer ' + token;
+
     const res  = await fetch(API + endpoint, {
       method:  'POST',
-      headers: { 'Content-Type': 'application/json', 'ngrok-skip-browser-warning': 'true' },
+      headers: headers,
       body:    JSON.stringify(body),
     });
+
 
     if (!res.ok) throw new Error('API returned ' + res.status);
     data = await res.json();
@@ -287,11 +292,16 @@ async function runFileScan(file) {
     formData.append('file', file);
     formData.append('device_id', 'web-' + Math.random().toString(36).slice(2,8));
 
+    const token = localStorage.getItem('ts_token');
+    const headers = { 'ngrok-skip-browser-warning': 'true' };
+    if (token) headers['Authorization'] = 'Bearer ' + token;
+
     const res = await fetch(API + '/scan/file', {
       method:  'POST',
-      headers: { 'ngrok-skip-browser-warning': 'true' },
+      headers: headers,
       body:    formData,
     });
+
 
     if (!res.ok) throw new Error('API returned ' + res.status);
     const data = await res.json();
