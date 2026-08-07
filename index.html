@@ -523,12 +523,14 @@
         localStorage.setItem("ts_token", token);
         localStorage.setItem("ts_user", JSON.stringify({ uid: user.uid, email: user.email }));
         
+        const displayName = user.displayName || user.email.split('@')[0];
         container.innerHTML = `
           <div style="display:flex;align-items:center;gap:10px;">
-            <span style="font-family:var(--font-mono);font-size:12px;color:var(--neon2);">👤 ${user.email.split('@')[0]}</span>
+            <span style="font-family:var(--font-mono);font-size:12px;color:var(--neon2);">👤 ${displayName}</span>
             <button id="btn-logout" class="btn btn-ghost" style="padding:4px 10px;font-size:12px">Logout</button>
           </div>
         `;
+
 
         document.getElementById("btn-logout")?.addEventListener("click", async () => {
           await signOut(auth);
