@@ -253,8 +253,10 @@ async function runScan(type, payload) {
 
     showScanResult(resultEl, data, payload.label || payload.url || payload.sender);
     if (window.fetchAccountStats) {
-      setTimeout(window.fetchAccountStats, 500);
+      setTimeout(window.fetchAccountStats, 300);
+      setTimeout(window.fetchAccountStats, 1200);
     }
+
 
   } catch (err) {
     // Fallback: client-side heuristic
