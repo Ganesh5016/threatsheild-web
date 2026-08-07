@@ -146,7 +146,7 @@
       submitBtn.disabled = true;
       submitBtn.innerText = "Signing in...";
 
-      const email = document.getElementById("email").value;
+      const email = document.getElementById("email").value.trim();
       const password = document.getElementById("password").value;
 
       try {
@@ -155,21 +155,24 @@
         localStorage.setItem("ts_token", token);
         localStorage.setItem("ts_user", JSON.stringify({
           uid: userCredential.user.uid,
-          email: userCredential.user.email
+          email: userCredential.user.email,
+          displayName: userCredential.user.displayName
         }));
         window.location.href = "index.html";
       } catch (error) {
-        let msg = error.message.replace("Firebase: ", "");
-        if (error.code === 'auth/invalid-credential' || error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password') {
-          msg = "Invalid email or password. If you haven't created an account yet, click 'Create Account' below!";
+        console.error("Login error:", error);
+        let msg = `Invalid password or email (${error.code || 'error'}). Please check your password or re-create account.`;
+        if (error.code === 'auth/invalid-credential') {
+          msg = "Incorrect password or email. Please check your password or click 'Create Account' below.";
         } else if (error.code === 'auth/admin-restricted-operation' || error.code === 'auth/operation-not-allowed') {
-          msg = "Email/Password sign-in is disabled in Firebase Console. Please enable it in Firebase -> Authentication -> Sign-in method.";
+          msg = "Email/Password sign-in is disabled in Firebase Console. Please enable it under Authentication -> Sign-in method.";
         }
         errorEl.innerText = msg;
         errorEl.style.display = "block";
         submitBtn.disabled = false;
         submitBtn.innerText = "⚡ Sign In";
       }
+
 
     });
   </script>
