@@ -3,7 +3,8 @@
    Live scanner, animations, FAQ, navbar, stats counter
    ================================================================ */
 
-const API = 'https://threatshield-api.onrender.com/api';
+const API = 'https://threatsheild-backend-production.up.railway.app/api';
+
 
 // ── Navbar scroll effect ───────────────────────────────────
 window.addEventListener('scroll', () => {
