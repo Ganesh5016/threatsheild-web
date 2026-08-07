@@ -1,0 +1,30 @@
+{
+  "name": "appium-tests",
+  "version": "1.0.0",
+  "description": "Appium Mobile Frontend E2E Automation Test Suite & Excel Report Generator for ThreatShield Android App",
+  "main": "tests/appium-e2e-tests.js",
+  "scripts": {
+    "test": "mocha tests/appium-e2e-tests.js --timeout 90000",
+    "test:single": "node tests/appium-e2e-tests.js",
+    "report:excel": "python generate_appium_excel_report.py"
+  },
+  "keywords": [
+    "appium",
+    "webdriverio",
+    "android",
+    "apk",
+    "e2e",
+    "mobile-testing",
+    "threatshield",
+    "excel-report"
+  ],
+  "author": "QA Automation Engineering Team",
+  "license": "ISC",
+  "dependencies": {
+    "webdriverio": "^8.24.0"
+  },
+  "devDependencies": {
+    "chai": "^4.3.10",
+    "mocha": "^10.2.0"
+  }
+}

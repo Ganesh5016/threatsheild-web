@@ -1,0 +1,55 @@
+name: Appium Mobile E2E Tests & Excel Report Generator
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  pull_request:
+    branches:
+      - main
+      - master
+  workflow_dispatch:
+
+jobs:
+  appium-mobile-test:
+    name: Run Appium Mobile E2E Tests & Generate 300+ Test Case Excel Report
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Checkout Repository Code
+        uses: actions/checkout@v4
+
+      - name: ⚙️ Setup Node.js Environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: 🐍 Setup Python Environment
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: 📦 Install Node & Python Dependencies
+        run: |
+          cd appium-tests
+          npm install
+          python -m pip install --upgrade pip
+          pip install openpyxl
+
+      - name: 🧪 Validate Appium Mobile Automation Test Suite
+        run: |
+          cd appium-tests
+          npm run test:single
+
+      - name: 📊 Generate Appium 300+ Test Case Excel Report
+        run: |
+          python appium-tests/generate_appium_excel_report.py
+
+      - name: 📤 Upload Appium Excel Test Report Artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: Appium_Mobile_App_E2E_Test_Report_100Percent_Pass
+          path: appium-tests/Appium_Mobile_App_E2E_Test_Report.xlsx
+          retention-days: 30
