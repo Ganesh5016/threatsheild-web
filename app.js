@@ -188,6 +188,24 @@ document.getElementById('btn-scan-apk')?.addEventListener('click', async () => {
   await runScan('url', { url, label: val });
 });
 
+function getDeviceId() {
+  try {
+    const userStr = localStorage.getItem('ts_user');
+    if (userStr) {
+      const u = JSON.parse(userStr);
+      if (u && u.uid) return u.uid;
+    }
+    let id = localStorage.getItem('ts_device_id');
+    if (!id) {
+      id = 'DEV-' + Math.random().toString(36).slice(2, 10).toUpperCase();
+      localStorage.setItem('ts_device_id', id);
+    }
+    return id;
+  } catch {
+    return 'DEV-DEFAULT';
+  }
+}
+
 // ── Main scan function ─────────────────────────────────────
 async function runScan(type, payload) {
   const resultEl = document.getElementById('scan-result');
@@ -210,15 +228,19 @@ async function runScan(type, payload) {
   resultEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 
   try {
-    let data;
+    const devId    = getDeviceId();
     const endpoint = type === 'email' ? '/scan/email' : '/scan/url';
     const body     = type === 'email'
-      ? { sender: payload.sender, subject: payload.subject }
-      : { url: payload.url };
+      ? { sender: payload.sender, subject: payload.subject, device_id: devId }
+      : { url: payload.url, device_id: devId };
 
     const token = localStorage.getItem('ts_token');
-    const headers = { 'Content-Type': 'application/json', 'ngrok-skip-browser-warning': 'true' };
-    if (token) headers['Authorization'] = 'Bearer ' + token;
+    const headers = {
+      'Content-Type': 'application/json',
+      'ngrok-skip-browser-warning': 'true',
+      'X-Device-ID': devId,
+      ...(token ? { 'Authorization': 'Bearer ' + token } : {}),
+    };
 
     const res  = await fetch(API + endpoint, {
       method:  'POST',
@@ -226,9 +248,8 @@ async function runScan(type, payload) {
       body:    JSON.stringify(body),
     });
 
-
     if (!res.ok) throw new Error('API returned ' + res.status);
-    data = await res.json();
+    const data = await res.json();
 
     showScanResult(resultEl, data, payload.label || payload.url || payload.sender);
 
@@ -240,6 +261,7 @@ async function runScan(type, payload) {
     showScanResult(resultEl, data, payload.label || input);
   }
 }
+
 
 // ── File scan function ─────────────────────────────────────
 async function runFileScan(file) {
@@ -289,13 +311,18 @@ async function runFileScan(file) {
 
   try {
     // Upload file to backend
+    const devId = getDeviceId();
     const formData = new FormData();
     formData.append('file', file);
-    formData.append('device_id', 'web-' + Math.random().toString(36).slice(2,8));
+    formData.append('device_id', devId);
 
     const token = localStorage.getItem('ts_token');
-    const headers = { 'ngrok-skip-browser-warning': 'true' };
-    if (token) headers['Authorization'] = 'Bearer ' + token;
+    const headers = {
+      'ngrok-skip-browser-warning': 'true',
+      'X-Device-ID': devId,
+      ...(token ? { 'Authorization': 'Bearer ' + token } : {}),
+    };
+
 
     const res = await fetch(API + '/scan/file', {
       method:  'POST',
