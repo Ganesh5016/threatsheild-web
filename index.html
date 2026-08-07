@@ -28,8 +28,8 @@
         <a href="#scanner">Try Scanner</a>
         <a href="#how-it-works">How It Works</a>
         <a href="#stats">Stats</a>
-        <a href="#download">Download</a>
       </div>
+
       <div style="display:flex;align-items:center;gap:10px" id="nav-auth-container">
         <a href="login.html" class="btn btn-ghost" id="btn-nav-login" style="padding:6px 14px;font-size:13px">Login</a>
         <a href="register.html" class="btn btn-nav" id="btn-nav-register" style="padding:6px 14px;font-size:13px">Register</a>
@@ -60,10 +60,8 @@
         <a href="#scanner" class="btn btn-primary btn-large">
           ⚡ Try Live Scanner
         </a>
-        <a href="#download" class="btn btn-ghost btn-large">
-          📱 Download App
-        </a>
       </div>
+
       <div class="hero-stats">
         <div class="hstat"><div class="hstat-num" id="hs-scans">285</div><div class="hstat-lbl">Scans Done</div></div>
         <div class="hstat-sep"></div>
@@ -330,31 +328,33 @@
   <!-- ── STATS ─────────────────────────────────────────────── -->
   <section class="section" id="stats">
     <div class="container">
-      <div class="section-badge">📊 Stats</div>
-      <h2 class="section-title">Protection <span class="gradient-text">By The Numbers</span></h2>
+      <div class="section-badge">📊 Account Stats</div>
+      <h2 class="section-title">Your Account <span class="gradient-text">Protection Stats</span></h2>
+      <p class="section-sub" style="margin-bottom: 24px;">Synced scan activity across both Web and Android App for your account.</p>
 
       <div class="stats-grid">
         <div class="stat-card">
-          <div class="stat-num gradient-text" id="s1">99.8%</div>
-          <div class="stat-label">Phishing Detection Rate</div>
-          <div class="stat-bar"><div class="stat-bar-fill" style="width:99.8%;background:var(--neon)"></div></div>
+          <div class="stat-num gradient-text" id="stat-account-scans">0</div>
+          <div class="stat-label">Total Account Scans (Web & App)</div>
+          <div class="stat-bar"><div class="stat-bar-fill" style="width:100%;background:var(--neon)"></div></div>
         </div>
         <div class="stat-card">
-          <div class="stat-num gradient-text" id="s2">97.2%</div>
-          <div class="stat-label">Malware Blocking Rate</div>
-          <div class="stat-bar"><div class="stat-bar-fill" style="width:97.2%;background:var(--neon2)"></div></div>
+          <div class="stat-num gradient-text" id="stat-account-threats">0</div>
+          <div class="stat-label">Threats Blocked</div>
+          <div class="stat-bar"><div class="stat-bar-fill" style="width:100%;background:var(--danger)"></div></div>
         </div>
         <div class="stat-card">
-          <div class="stat-num gradient-text" id="s3">70+</div>
-          <div class="stat-label">Antivirus Engines Used</div>
-          <div class="stat-bar"><div class="stat-bar-fill" style="width:90%;background:var(--neon3)"></div></div>
+          <div class="stat-num gradient-text" id="stat-account-safe">0</div>
+          <div class="stat-label">Safe Scans</div>
+          <div class="stat-bar"><div class="stat-bar-fill" style="width:100%;background:var(--neon2)"></div></div>
         </div>
         <div class="stat-card">
-          <div class="stat-num gradient-text" id="s4">&lt;2s</div>
-          <div class="stat-label">Average Scan Time</div>
-          <div class="stat-bar"><div class="stat-bar-fill" style="width:95%;background:var(--warn)"></div></div>
+          <div class="stat-num gradient-text" id="stat-account-accuracy">99.8%</div>
+          <div class="stat-label">AI Detection Accuracy</div>
+          <div class="stat-bar"><div class="stat-bar-fill" style="width:99.8%;background:var(--warn)"></div></div>
         </div>
       </div>
+
 
       <!-- Threat type breakdown -->
       <div class="threat-breakdown">
@@ -389,60 +389,7 @@
     </div>
   </section>
 
-  <!-- ── DOWNLOAD ──────────────────────────────────────────── -->
-  <section class="section dark-section" id="download">
-    <div class="container" style="text-align:center">
-      <div class="section-badge">📱 Download</div>
-      <h2 class="section-title">Get ThreatShield <span class="gradient-text">Free</span></h2>
-      <p class="section-sub">Available for Android. Install directly via APK — no Play Store needed.</p>
 
-      <div class="download-cards">
-        <div class="download-card featured">
-          <div style="font-size:48px;margin-bottom:16px">🤖</div>
-          <h3>Android APK</h3>
-          <p>Direct download — works on Android 8.0+</p>
-          <div class="download-meta">
-            <span>📦 v3.2.0</span>
-            <span>⚡ ~8 MB</span>
-            <span>🔓 Free forever</span>
-          </div>
-          <a href="#" class="btn btn-primary btn-download" id="btn-download-apk">
-            ⬇️ Download APK
-          </a>
-          <div class="download-note">
-            Enable "Install from unknown sources" in Settings
-          </div>
-        </div>
-        <div class="download-card">
-          <div style="font-size:48px;margin-bottom:16px">🌐</div>
-          <h3>Web App</h3>
-          <p>Use ThreatShield directly in your browser</p>
-          <div class="download-meta">
-            <span>🚀 No install</span>
-            <span>🌐 Any device</span>
-            <span>✅ Free</span>
-          </div>
-          <a href="#scanner" class="btn btn-ghost btn-download">
-            🔍 Open Web Scanner
-          </a>
-          <div class="download-note">
-            URL and email scanning available online
-          </div>
-        </div>
-      </div>
-
-      <!-- Install steps -->
-      <div class="install-steps">
-        <h3>How to Install APK</h3>
-        <div class="install-grid">
-          <div class="install-step"><div class="is-num">1</div><p>Download the APK file</p></div>
-          <div class="install-step"><div class="is-num">2</div><p>Open Settings → Apps → Special Access</p></div>
-          <div class="install-step"><div class="is-num">3</div><p>Enable "Install unknown apps" for your browser</p></div>
-          <div class="install-step"><div class="is-num">4</div><p>Tap the downloaded APK → Install</p></div>
-        </div>
-      </div>
-    </div>
-  </section>
 
   <!-- ── FAQ ───────────────────────────────────────────────── -->
   <section class="section" id="faq">
@@ -489,8 +436,8 @@
           <div class="footer-col-title">Product</div>
           <a href="#features">Features</a>
           <a href="#scanner">Live Scanner</a>
-          <a href="#download">Download</a>
         </div>
+
         <div class="footer-col">
           <div class="footer-col-title">Support</div>
           <a href="#faq">FAQ</a>
@@ -529,10 +476,35 @@
             <span style="font-family:var(--font-mono);font-size:12px;color:var(--neon2);">👤 ${displayName}</span>
             <button id="btn-logout" class="btn btn-ghost" style="padding:4px 10px;font-size:12px">Logout</button>
           </div>
-        `;
+        // Fetch account stats for both Web and Android App
+        try {
+          const res = await fetch(`https://threatsheild-backend-production.up.railway.app/api/stats/overview?device_id=${user.uid}`, {
+            headers: { 'Authorization': `Bearer ${token}` }
+          });
+          if (res.ok) {
+            const data = await res.json();
+            const total = data.total || 0;
+            const blocked = data.blocked || 0;
+            const safe = data.safe || 0;
 
+            const elTotal = document.getElementById("stat-account-scans");
+            const elThreats = document.getElementById("stat-account-threats");
+            const elSafe = document.getElementById("stat-account-safe");
+            const hsScans = document.getElementById("hs-scans");
+            const hsThreats = document.getElementById("hs-threats");
+
+            if (elTotal) elTotal.textContent = total;
+            if (elThreats) elThreats.textContent = blocked;
+            if (elSafe) elSafe.textContent = safe;
+            if (hsScans) hsScans.textContent = total;
+            if (hsThreats) hsThreats.textContent = blocked;
+          }
+        } catch (err) {
+          console.warn("Could not load account stats:", err);
+        }
 
         document.getElementById("btn-logout")?.addEventListener("click", async () => {
+
           await signOut(auth);
           localStorage.removeItem("ts_token");
           localStorage.removeItem("ts_user");

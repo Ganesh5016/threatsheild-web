@@ -581,70 +581,10 @@ const observer = new IntersectionObserver(entries => {
 
 document.querySelectorAll('#stats, .feature-card, .stat-card').forEach(el => observer.observe(el));
 
-// ── Download button ────────────────────────────────────────
-document.getElementById('btn-download-apk')?.addEventListener('click', e => {
-  e.preventDefault();
-  // Show instructions modal
-  showDownloadModal();
-});
-
-function showDownloadModal() {
-  const modal = document.createElement('div');
-  modal.style.cssText = `
-    position:fixed;inset:0;z-index:1000;background:rgba(6,10,16,0.95);
-    display:flex;align-items:center;justify-content:center;padding:20px;
-    backdrop-filter:blur(10px);animation:fade-in .3s ease`;
-  modal.innerHTML = `
-    <div style="background:#0d1628;border:1px solid rgba(0,255,136,0.25);
-      border-radius:20px;padding:32px;max-width:440px;width:100%;text-align:center">
-      <div style="font-size:48px;margin-bottom:16px">📱</div>
-      <div style="font-family:'Orbitron',monospace;font-size:18px;font-weight:700;
-        color:#00ff88;letter-spacing:1px;margin-bottom:8px">Download ThreatShield</div>
-      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#3d5a7a;
-        margin-bottom:24px">Follow these steps to install on Android</div>
-
-      <div style="text-align:left;display:flex;flex-direction:column;gap:12px;margin-bottom:24px">
-        ${[
-          ['1', 'Build the APK', 'Follow the build guide on GitHub to compile the debug APK'],
-          ['2', 'Transfer to phone', 'Send the APK via WhatsApp, Gmail or USB cable'],
-          ['3', 'Enable unknown sources', 'Settings → Apps → Special Access → Install Unknown Apps'],
-          ['4', 'Install & protect', 'Tap the APK file and follow the install prompts'],
-        ].map(([n, t, d]) => `
-          <div style="display:flex;gap:12px;align-items:flex-start;background:rgba(0,255,136,0.04);
-            border:1px solid rgba(0,255,136,0.1);border-radius:12px;padding:14px">
-            <div style="width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#00ff88,#00d4ff);
-              color:#060a10;font-weight:900;display:flex;align-items:center;justify-content:center;
-              font-size:12px;flex-shrink:0">${n}</div>
-            <div>
-              <div style="font-size:13px;font-weight:700;color:#e8f4f8;margin-bottom:3px">${t}</div>
-              <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#3d5a7a">${d}</div>
-            </div>
-          </div>`).join('')}
-      </div>
-
-      <div style="display:flex;gap:10px">
-        <a href="https://github.com" target="_blank" style="flex:1;padding:12px;border-radius:12px;
-          background:linear-gradient(135deg,#00ff88,#00d4ff);color:#060a10;
-          font-weight:700;text-decoration:none;font-size:13px;display:flex;
-          align-items:center;justify-content:center;gap:8px">
-          📦 View on GitHub
-        </a>
-        <button onclick="this.closest('[style*=fixed]').remove()" style="flex:1;padding:12px;
-          border-radius:12px;background:rgba(0,212,255,0.08);
-          border:1px solid rgba(0,212,255,0.2);color:#00d4ff;
-          font-weight:700;font-size:13px;cursor:pointer">
-          ✕ Close
-        </button>
-      </div>
-    </div>`;
-  document.body.appendChild(modal);
-  modal.addEventListener('click', e => { if (e.target === modal) modal.remove(); });
-}
-
 // ── Check API health and update footer ────────────────────
 async function checkApiStatus() {
   try {
-    const res  = await fetch('https://threatshield-api.onrender.com/health', {
+    const res  = await fetch('https://threatsheild-backend-production.up.railway.app/health', {
       headers: { 'ngrok-skip-browser-warning': 'true' },
       signal:  AbortSignal.timeout(5000),
     });
@@ -662,6 +602,7 @@ async function checkApiStatus() {
     });
   }
 }
+
 
 // ── Smooth reveal on scroll ────────────────────────────────
 const revealObserver = new IntersectionObserver(entries => {
