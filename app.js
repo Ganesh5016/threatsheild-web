@@ -453,7 +453,35 @@ function showScanResult(el, data, label) {
       bar.style.transition = 'width 1s ease';
     });
   }, 100);
+
+  // Update stats counters in real-time
+  try {
+    const incEl = (id) => {
+      const target = document.getElementById(id);
+      if (target) {
+        const val = parseInt(target.textContent.replace(/[^0-9]/g, '')) || 0;
+        target.textContent = val + 1;
+      }
+    };
+
+    incEl('stat-account-scans');
+    incEl('hs-scans');
+
+    if (level === 'danger') {
+      incEl('stat-account-threats');
+      incEl('hs-threats');
+    } else if (level === 'safe') {
+      incEl('stat-account-safe');
+    }
+
+    if (window.fetchAccountStats) {
+      setTimeout(window.fetchAccountStats, 600);
+    }
+  } catch (err) {
+    console.debug("Real-time stats increment:", err);
+  }
 }
+
 
 // ── Client-side heuristic fallback ────────────────────────
 function clientHeuristic(input, type) {

@@ -476,35 +476,40 @@
             <span style="font-family:var(--font-mono);font-size:12px;color:var(--neon2);">👤 ${displayName}</span>
             <button id="btn-logout" class="btn btn-ghost" style="padding:4px 10px;font-size:12px">Logout</button>
           </div>
-        // Fetch account stats for both Web and Android App
-        try {
-          const res = await fetch(`https://threatsheild-backend-production.up.railway.app/api/stats/overview?device_id=${user.uid}`, {
-            headers: { 'Authorization': `Bearer ${token}` }
-          });
-          if (res.ok) {
-            const data = await res.json();
-            const total = data.total || 0;
-            const blocked = data.blocked || 0;
-            const safe = data.safe || 0;
+        `;
 
-            const elTotal = document.getElementById("stat-account-scans");
-            const elThreats = document.getElementById("stat-account-threats");
-            const elSafe = document.getElementById("stat-account-safe");
-            const hsScans = document.getElementById("hs-scans");
-            const hsThreats = document.getElementById("hs-threats");
+        window.fetchAccountStats = async function() {
+          try {
+            const token = localStorage.getItem("ts_token");
+            const res = await fetch(`https://threatsheild-backend-production.up.railway.app/api/stats/overview?device_id=${user.uid}`, {
+              headers: token ? { 'Authorization': `Bearer ${token}` } : {}
+            });
+            if (res.ok) {
+              const data = await res.json();
+              const total = data.total || 0;
+              const blocked = data.blocked || 0;
+              const safe = data.safe || 0;
 
-            if (elTotal) elTotal.textContent = total;
-            if (elThreats) elThreats.textContent = blocked;
-            if (elSafe) elSafe.textContent = safe;
-            if (hsScans) hsScans.textContent = total;
-            if (hsThreats) hsThreats.textContent = blocked;
+              const elTotal = document.getElementById("stat-account-scans");
+              const elThreats = document.getElementById("stat-account-threats");
+              const elSafe = document.getElementById("stat-account-safe");
+              const hsScans = document.getElementById("hs-scans");
+              const hsThreats = document.getElementById("hs-threats");
+
+              if (elTotal) elTotal.textContent = total;
+              if (elThreats) elThreats.textContent = blocked;
+              if (elSafe) elSafe.textContent = safe;
+              if (hsScans) hsScans.textContent = total;
+              if (hsThreats) hsThreats.textContent = blocked;
+            }
+          } catch (err) {
+            console.warn("Could not load account stats:", err);
           }
-        } catch (err) {
-          console.warn("Could not load account stats:", err);
-        }
+        };
+
+        window.fetchAccountStats();
 
         document.getElementById("btn-logout")?.addEventListener("click", async () => {
-
           await signOut(auth);
           localStorage.removeItem("ts_token");
           localStorage.removeItem("ts_user");
