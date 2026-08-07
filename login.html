@@ -159,11 +159,18 @@
         }));
         window.location.href = "index.html";
       } catch (error) {
-        errorEl.innerText = error.message.replace("Firebase: ", "");
+        let msg = error.message.replace("Firebase: ", "");
+        if (error.code === 'auth/invalid-credential' || error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password') {
+          msg = "Invalid email or password. If you haven't created an account yet, click 'Create Account' below!";
+        } else if (error.code === 'auth/admin-restricted-operation' || error.code === 'auth/operation-not-allowed') {
+          msg = "Email/Password sign-in is disabled in Firebase Console. Please enable it in Firebase -> Authentication -> Sign-in method.";
+        }
+        errorEl.innerText = msg;
         errorEl.style.display = "block";
         submitBtn.disabled = false;
         submitBtn.innerText = "⚡ Sign In";
       }
+
     });
   </script>
 </body>

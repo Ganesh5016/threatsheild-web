@@ -168,11 +168,18 @@
         }));
         window.location.href = "index.html";
       } catch (error) {
-        errorEl.innerText = error.message.replace("Firebase: ", "");
+        let msg = error.message.replace("Firebase: ", "");
+        if (error.code === 'auth/operation-not-allowed') {
+          msg = "Email/Password sign-in is disabled in your Firebase Console. Please enable it under Authentication -> Sign-in method.";
+        } else if (error.code === 'auth/email-already-in-use') {
+          msg = "An account with this email already exists! Please click Sign In below.";
+        }
+        errorEl.innerText = msg;
         errorEl.style.display = "block";
         submitBtn.disabled = false;
         submitBtn.innerText = "🚀 Create Account";
       }
+
     });
 
   </script>
