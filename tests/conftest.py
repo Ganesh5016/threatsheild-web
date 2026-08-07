@@ -16,7 +16,13 @@ def pytest_runtest_makereport(item, call):
     if rep.when == "call":
         # Extract metadata from the test item
         test_id = item.get_closest_marker("test_id")
-        test_id_val = test_id.args[0] if test_id else "N/A"
+        test_id_val = test_id.args[0] if test_id else None
+        
+        if not test_id_val and hasattr(item, "callspec") and "tc_id" in item.callspec.params:
+            test_id_val = item.callspec.params["tc_id"]
+            
+        if not test_id_val:
+            test_id_val = f"TC_E2E_{len(test_results)+1:03d}"
         
         module = item.get_closest_marker("module")
         module_val = module.args[0] if module else "General"
