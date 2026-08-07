@@ -252,6 +252,9 @@ async function runScan(type, payload) {
     const data = await res.json();
 
     showScanResult(resultEl, data, payload.label || payload.url || payload.sender);
+    if (window.fetchAccountStats) {
+      setTimeout(window.fetchAccountStats, 500);
+    }
 
   } catch (err) {
     // Fallback: client-side heuristic
@@ -259,8 +262,21 @@ async function runScan(type, payload) {
     const input = payload.url || payload.sender || '';
     const data  = clientHeuristic(input, type);
     showScanResult(resultEl, data, payload.label || input);
+
+    // Persist heuristic scan to backend asynchronously
+    try {
+      const devId = getDeviceId();
+      fetch(API + '/scan/url', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'X-Device-ID': devId },
+        body: JSON.stringify({ url: input, device_id: devId })
+      }).then(() => {
+        if (window.fetchAccountStats) setTimeout(window.fetchAccountStats, 500);
+      });
+    } catch (e) {}
   }
 }
+
 
 
 // ── File scan function ─────────────────────────────────────

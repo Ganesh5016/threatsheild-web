@@ -480,63 +480,46 @@
 
         window.fetchAccountStats = async function() {
           try {
+            const userObj = JSON.parse(localStorage.getItem("ts_user") || "{}");
+            const uid = userObj.uid || user?.uid;
+            if (!uid) return;
+
             const token = localStorage.getItem("ts_token");
-            let data = null;
-            try {
-              const res = await fetch(`https://threatsheild-backend-production.up.railway.app/api/stats/overview?device_id=${user.uid}`, {
-                headers: token ? { 'Authorization': `Bearer ${token}` } : {}
-              });
-              if (res.ok) {
-                const parsed = await res.json();
-                if (parsed && typeof parsed.total === 'number' && parsed.total > 0) {
-                  data = parsed;
+            const hRes = await fetch(`https://threatsheild-backend-production.up.railway.app/api/scan/history/list?limit=500&device_id=${uid}`, {
+              headers: token ? { 'Authorization': `Bearer ${token}` } : {}
+            });
+            if (hRes.ok) {
+              const history = await hRes.json();
+              if (Array.isArray(history)) {
+                let total = history.length;
+                let blocked = 0;
+                let warn = 0;
+                let safe = 0;
+                for (const h of history) {
+                  const lvl = (h.threat_level || h.verdict || '').toLowerCase();
+                  if (lvl.includes('danger') || lvl.includes('block')) blocked++;
+                  else if (lvl.includes('warn')) warn++;
+                  else safe++;
                 }
+
+                const elTotal = document.getElementById("stat-account-scans");
+                const elThreats = document.getElementById("stat-account-threats");
+                const elSafe = document.getElementById("stat-account-safe");
+                const hsScans = document.getElementById("hs-scans");
+                const hsThreats = document.getElementById("hs-threats");
+
+                if (elTotal) elTotal.textContent = total;
+                if (elThreats) elThreats.textContent = blocked;
+                if (elSafe) elSafe.textContent = safe;
+                if (hsScans) hsScans.textContent = total;
+                if (hsThreats) hsThreats.textContent = blocked;
               }
-            } catch (e) {}
-
-            if (!data) {
-              const hRes = await fetch(`https://threatsheild-backend-production.up.railway.app/api/scan/history/list?limit=500&device_id=${user.uid}`, {
-                headers: token ? { 'Authorization': `Bearer ${token}` } : {}
-              });
-              if (hRes.ok) {
-                const history = await hRes.json();
-                if (Array.isArray(history)) {
-                  let total = history.length;
-                  let blocked = 0;
-                  let warn = 0;
-                  let safe = 0;
-                  for (const h of history) {
-                    const lvl = (h.threat_level || h.verdict || '').toLowerCase();
-                    if (lvl.includes('danger') || lvl.includes('block')) blocked++;
-                    else if (lvl.includes('warn')) warn++;
-                    else safe++;
-                  }
-                  data = { total, safe, warn, blocked };
-                }
-              }
-            }
-
-            if (data) {
-              const total = data.total || 0;
-              const blocked = data.blocked || 0;
-              const safe = data.safe || 0;
-
-              const elTotal = document.getElementById("stat-account-scans");
-              const elThreats = document.getElementById("stat-account-threats");
-              const elSafe = document.getElementById("stat-account-safe");
-              const hsScans = document.getElementById("hs-scans");
-              const hsThreats = document.getElementById("hs-threats");
-
-              if (elTotal) elTotal.textContent = total;
-              if (elThreats) elThreats.textContent = blocked;
-              if (elSafe) elSafe.textContent = safe;
-              if (hsScans) hsScans.textContent = total;
-              if (hsThreats) hsThreats.textContent = blocked;
             }
           } catch (err) {
             console.warn("Could not load account stats:", err);
           }
         };
+
 
 
         window.fetchAccountStats();
