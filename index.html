@@ -463,6 +463,71 @@
   <script type="module">
     import { auth, onAuthStateChanged, signOut } from "./firebase-config.js";
 
+    window.fetchAccountStats = async function() {
+      try {
+        let uid = null;
+        try {
+          const userObj = JSON.parse(localStorage.getItem("ts_user") || "{}");
+          uid = userObj.uid;
+        } catch (e) {}
+
+        if (!uid) {
+          let devId = localStorage.getItem("ts_device_id");
+          if (!devId) {
+            devId = 'DEV-' + Math.random().toString(36).slice(2, 10).toUpperCase();
+            localStorage.setItem("ts_device_id", devId);
+          }
+          uid = devId;
+        }
+
+        const token = localStorage.getItem("ts_token");
+        const hRes = await fetch(`https://threatsheild-backend-production.up.railway.app/api/scan/history/list?limit=500&device_id=${uid}`, {
+          headers: token ? { 'Authorization': `Bearer ${token}` } : {}
+        });
+        if (hRes.ok) {
+          const history = await hRes.json();
+          if (Array.isArray(history)) {
+            let total = history.length;
+            let blocked = 0;
+            let warn = 0;
+            let safe = 0;
+            for (const h of history) {
+              const lvl = (h.threat_level || h.verdict || '').toLowerCase();
+              if (lvl.includes('danger') || lvl.includes('block')) blocked++;
+              else if (lvl.includes('warn')) warn++;
+              else safe++;
+            }
+
+            const elTotal = document.getElementById("stat-account-scans");
+            const elThreats = document.getElementById("stat-account-threats");
+            const elSafe = document.getElementById("stat-account-safe");
+            const hsScans = document.getElementById("hs-scans");
+            const hsThreats = document.getElementById("hs-threats");
+
+            if (elTotal) elTotal.textContent = total;
+            if (elThreats) elThreats.textContent = blocked;
+            if (elSafe) elSafe.textContent = safe;
+            if (hsScans) hsScans.textContent = total;
+            if (hsThreats) hsThreats.textContent = blocked;
+          }
+        }
+      } catch (err) {
+        console.warn("Could not load account stats:", err);
+      }
+    };
+
+    // Auto-sync interval every 2s
+    setInterval(() => {
+      if (window.fetchAccountStats) window.fetchAccountStats();
+    }, 2000);
+
+    // Sync instantly when returning to tab
+    document.addEventListener('visibilitychange', () => {
+      if (!document.hidden && window.fetchAccountStats) {
+        window.fetchAccountStats();
+      }
+    });
+
     onAuthStateChanged(auth, async (user) => {
       const container = document.getElementById("nav-auth-container");
       if (user) {
@@ -478,85 +543,27 @@
           </div>
         `;
 
-        window.fetchAccountStats = async function() {
-          try {
-            const userObj = JSON.parse(localStorage.getItem("ts_user") || "{}");
-            const uid = userObj.uid || user?.uid;
-            if (!uid) return;
-
-            const token = localStorage.getItem("ts_token");
-            const hRes = await fetch(`https://threatsheild-backend-production.up.railway.app/api/scan/history/list?limit=500&device_id=${uid}`, {
-              headers: token ? { 'Authorization': `Bearer ${token}` } : {}
-            });
-            if (hRes.ok) {
-              const history = await hRes.json();
-              if (Array.isArray(history)) {
-                let total = history.length;
-                let blocked = 0;
-                let warn = 0;
-                let safe = 0;
-                for (const h of history) {
-                  const lvl = (h.threat_level || h.verdict || '').toLowerCase();
-                  if (lvl.includes('danger') || lvl.includes('block')) blocked++;
-                  else if (lvl.includes('warn')) warn++;
-                  else safe++;
-                }
-
-                const elTotal = document.getElementById("stat-account-scans");
-                const elThreats = document.getElementById("stat-account-threats");
-                const elSafe = document.getElementById("stat-account-safe");
-                const hsScans = document.getElementById("hs-scans");
-                const hsThreats = document.getElementById("hs-threats");
-
-                if (elTotal) elTotal.textContent = total;
-                if (elThreats) elThreats.textContent = blocked;
-                if (elSafe) elSafe.textContent = safe;
-                if (hsScans) hsScans.textContent = total;
-                if (hsThreats) hsThreats.textContent = blocked;
-              }
-            }
-          } catch (err) {
-            console.warn("Could not load account stats:", err);
-          }
-        };
-
-
-
         window.fetchAccountStats();
 
-        // Real-time 3s auto sync interval
-        if (!window._statsInterval) {
-          window._statsInterval = setInterval(() => {
-            if (window.fetchAccountStats) window.fetchAccountStats();
-          }, 3000);
-        }
-
-        // Sync instantly when user switches back to tab
-        document.addEventListener('visibilitychange', () => {
-          if (!document.hidden && window.fetchAccountStats) {
-            window.fetchAccountStats();
-          }
-        });
-
         document.getElementById("btn-logout")?.addEventListener("click", async () => {
-          if (window._statsInterval) clearInterval(window._statsInterval);
           await signOut(auth);
           localStorage.removeItem("ts_token");
           localStorage.removeItem("ts_user");
           window.location.reload();
         });
       } else {
-        if (window._statsInterval) clearInterval(window._statsInterval);
         localStorage.removeItem("ts_token");
         localStorage.removeItem("ts_user");
         container.innerHTML = `
           <a href="login.html" class="btn btn-ghost" id="btn-nav-login" style="padding:6px 14px;font-size:13px">Login</a>
           <a href="register.html" class="btn btn-nav" id="btn-nav-register" style="padding:6px 14px;font-size:13px">Register</a>
         `;
+        window.fetchAccountStats();
       }
     });
   </script>
 </body>
 </html>
+
 
 
