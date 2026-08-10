@@ -24,11 +24,11 @@
         <span class="logo-text">THREATSHIELD</span>
       </a>
       <div class="nav-links" id="nav-links">
-        <a href="#features">Features</a>
         <a href="#scanner">Try Scanner</a>
         <a href="#how-it-works">How It Works</a>
         <a href="#stats">Stats</a>
       </div>
+
 
       <div style="display:flex;align-items:center;gap:10px" id="nav-auth-container">
         <a href="login.html" class="btn btn-ghost" id="btn-nav-login" style="padding:6px 14px;font-size:13px">Login</a>
@@ -229,13 +229,19 @@
 
         <!-- Network Monitor Tab -->
         <div class="scan-body" id="tab-network" style="display:none">
+          <div class="scan-input-wrap" style="margin-bottom:12px">
+            <span class="scan-prefix">IP://</span>
+            <input class="scan-input" id="net-ip-input" type="text"
+              placeholder="enter IP address or host to inspect (e.g. 8.8.8.8)..." autocomplete="off" spellcheck="false"/>
+          </div>
+
           <div style="background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:18px;margin-bottom:14px">
             <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
               <div style="display:flex;align-items:center;gap:10px">
                 <span style="font-size:24px">📡</span>
                 <div>
                   <div style="font-family:var(--font-display);font-size:14px;font-weight:700;color:var(--text)">NETWORK PACKET & IP TRAFFIC MONITOR</div>
-                  <div style="font-family:var(--font-mono);font-size:10px;color:var(--muted)">Live Inbound & Outbound Connection Analyzer</div>
+                  <div style="font-family:var(--font-mono);font-size:10px;color:var(--muted)">Wireshark-Style Packet Inspection & DNS Shield</div>
                 </div>
               </div>
               <div style="display:flex;align-items:center;gap:6px;background:rgba(0,255,136,0.1);padding:4px 10px;border-radius:20px;border:1px solid rgba(0,255,136,0.3)">
@@ -246,20 +252,20 @@
 
             <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(130px, 1fr));gap:10px;margin-bottom:14px">
               <div style="background:var(--bg);padding:10px;border-radius:10px;border:1px solid var(--border);text-align:center">
-                <div style="font-family:var(--font-mono);font-size:16px;font-weight:700;color:var(--neon)">192.168.1.105</div>
+                <div style="font-family:var(--font-mono);font-size:15px;font-weight:700;color:var(--neon)">192.168.1.105</div>
                 <div style="font-family:var(--font-mono);font-size:9px;color:var(--muted)">LOCAL DEVICE IP</div>
               </div>
               <div style="background:var(--bg);padding:10px;border-radius:10px;border:1px solid var(--border);text-align:center">
-                <div style="font-family:var(--font-mono);font-size:16px;font-weight:700;color:var(--neon2)">14ms</div>
+                <div style="font-family:var(--font-mono);font-size:15px;font-weight:700;color:var(--neon2)">14ms</div>
                 <div style="font-family:var(--font-mono);font-size:9px;color:var(--muted)">PING LATENCY</div>
               </div>
               <div style="background:var(--bg);padding:10px;border-radius:10px;border:1px solid var(--border);text-align:center">
-                <div style="font-family:var(--font-mono);font-size:16px;font-weight:700;color:var(--neon3)">0</div>
+                <div style="font-family:var(--font-mono);font-size:15px;font-weight:700;color:var(--neon3)">0</div>
                 <div style="font-family:var(--font-mono);font-size:9px;color:var(--muted)">LEAKS / MALICIOUS IP</div>
               </div>
             </div>
 
-            <div style="font-family:var(--font-mono);font-size:10px;color:var(--muted);margin-bottom:8px;letter-spacing:1px">INBOUND & OUTGOING PACKET CONNECTIONS:</div>
+            <div style="font-family:var(--font-mono);font-size:10px;color:var(--muted);margin-bottom:8px;letter-spacing:1px">ACTIVE INBOUND & OUTBOUND IP PACKET CONNECTIONS:</div>
             <div id="network-packets-stream" style="display:flex;flex-direction:column;gap:6px;font-family:var(--font-mono);font-size:11px">
               <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:var(--bg);border-radius:8px;border:1px solid var(--border)">
                 <div>
@@ -287,60 +293,14 @@
           <button class="btn btn-primary btn-scan" id="btn-scan-network">📡 Run Live Network IP Traffic Scan</button>
         </div>
 
+
         <!-- Result -->
         <div class="scan-result" id="scan-result" style="display:none"></div>
       </div>
     </div>
   </section>
 
-  <!-- ── FEATURES ──────────────────────────────────────────── -->
-  <section class="section" id="features">
-    <div class="container">
-      <div class="section-badge">🛡️ Features</div>
-      <h2 class="section-title">Everything You Need to<br/><span class="gradient-text">Stay Protected</span></h2>
 
-      <div class="features-grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
-        <div class="feature-card" data-tab-nav="url" style="cursor:pointer">
-          <div class="feature-icon">🔗</div>
-          <h3>URL Scanner</h3>
-          <p>Checks every link against VirusTotal (70+ engines), Google Safe Browsing, URLScan.io and PhishTank before you click.</p>
-          <div class="feature-tags"><span>VirusTotal</span><span>Safe Browsing</span><span>AI Heuristics</span></div>
-          <div style="margin-top:14px;font-family:var(--font-display);font-size:11px;color:var(--neon);font-weight:700;display:flex;align-items:center;gap:4px">⚡ OPEN URL SCANNER →</div>
-        </div>
-        <div class="feature-card" data-tab-nav="file" style="cursor:pointer">
-          <div class="feature-icon">📁</div>
-          <h3>File Scanner</h3>
-          <p>Upload any file — APK, EXE, PDF, ZIP. Our YARA rules engine and entropy analysis detect malware before it executes.</p>
-          <div class="feature-tags"><span>YARA Rules</span><span>Entropy Analysis</span><span>VT Hash</span></div>
-          <div style="margin-top:14px;font-family:var(--font-display);font-size:11px;color:var(--neon2);font-weight:700;display:flex;align-items:center;gap:4px">📁 OPEN FILE SCANNER →</div>
-        </div>
-        <div class="feature-card" data-tab-nav="email" style="cursor:pointer">
-          <div class="feature-icon">📧</div>
-          <h3>Email Guard</h3>
-          <p>Analyzes sender addresses and email subjects to identify phishing attempts and credential stealing schemes.</p>
-          <div class="feature-tags"><span>Phishing Check</span><span>Sender Analysis</span><span>SPF/DKIM</span></div>
-          <div style="margin-top:14px;font-family:var(--font-display);font-size:11px;color:var(--neon3);font-weight:700;display:flex;align-items:center;gap:4px">📧 OPEN EMAIL SCANNER →</div>
-        </div>
-        <div class="feature-card" data-tab-nav="apk" style="cursor:pointer">
-          <div class="feature-icon">📦</div>
-          <h3>APK Guard</h3>
-          <p>Deep inspects Android package names, APK permissions, and binary signatures before installation.</p>
-          <div class="feature-tags"><span>APK Analysis</span><span>Package Guard</span><span>Permissions</span></div>
-          <div style="margin-top:14px;font-family:var(--font-display);font-size:11px;color:var(--warn);font-weight:700;display:flex;align-items:center;gap:4px">📦 OPEN APK SCANNER →</div>
-        </div>
-        <div class="feature-card" data-tab-nav="network" style="cursor:pointer">
-          <div class="feature-icon">📡</div>
-          <h3>Network Monitor</h3>
-          <p>Shows real-time incoming and outgoing IP connections, ports, TLS encryption, and flags malicious IPs.</p>
-          <div class="feature-tags"><span>Packet Capture</span><span>In/Out IP Stream</span><span>DNS Leak</span></div>
-          <div style="margin-top:14px;font-family:var(--font-display);font-size:11px;color:var(--neon);font-weight:700;display:flex;align-items:center;gap:4px">📡 OPEN NETWORK MONITOR →</div>
-        </div>
-      </div>
-
-
-
-    </div>
-  </section>
 
   <!-- ── HOW IT WORKS ──────────────────────────────────────── -->
   <section class="section dark-section" id="how-it-works">

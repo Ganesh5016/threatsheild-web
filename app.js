@@ -207,8 +207,12 @@ document.getElementById('btn-scan-apk')?.addEventListener('click', async () => {
 
 // ── Scan Network ───────────────────────────────────────────
 document.getElementById('btn-scan-network')?.addEventListener('click', async () => {
-  await runScan('url', { url: 'https://network-diagnostics.internal', label: '📡 Network Traffic & Connection Diagnostic' });
+  const ipVal = document.getElementById('net-ip-input')?.value.trim();
+  const url = ipVal ? (ipVal.startsWith('http') ? ipVal : 'https://' + ipVal) : 'https://network-diagnostics.internal';
+  const label = ipVal ? `📡 IP Connection Analysis: ${ipVal}` : '📡 Live Network Traffic & Inbound/Outbound IP Diagnostic';
+  await runScan('url', { url, label });
 });
+
 
 
 function getDeviceId() {
