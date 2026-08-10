@@ -186,12 +186,15 @@
           <!-- Supported formats -->
           <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px">
             <span style="font-family:var(--font-mono);font-size:9px;color:var(--muted)">Supports:</span>
-            ${['.APK','.EXE','.PDF','.ZIP','.RAR','.DOC','.XLS','.SH','.BAT','.JS'].map(ext =>
-              `<span style="font-family:var(--font-mono);font-size:9px;padding:2px 8px;
-                border-radius:4px;background:rgba(168,85,247,0.08);
-                border:1px solid rgba(168,85,247,0.2);color:var(--neon3)">${ext}</span>`
-            ).join('')}
+            <span style="font-family:var(--font-mono);font-size:9px;padding:2px 8px;border-radius:4px;background:rgba(168,85,247,0.08);border:1px solid rgba(168,85,247,0.2);color:var(--neon3)">.APK</span>
+            <span style="font-family:var(--font-mono);font-size:9px;padding:2px 8px;border-radius:4px;background:rgba(168,85,247,0.08);border:1px solid rgba(168,85,247,0.2);color:var(--neon3)">.EXE</span>
+            <span style="font-family:var(--font-mono);font-size:9px;padding:2px 8px;border-radius:4px;background:rgba(168,85,247,0.08);border:1px solid rgba(168,85,247,0.2);color:var(--neon3)">.PDF</span>
+            <span style="font-family:var(--font-mono);font-size:9px;padding:2px 8px;border-radius:4px;background:rgba(168,85,247,0.08);border:1px solid rgba(168,85,247,0.2);color:var(--neon3)">.ZIP</span>
+            <span style="font-family:var(--font-mono);font-size:9px;padding:2px 8px;border-radius:4px;background:rgba(168,85,247,0.08);border:1px solid rgba(168,85,247,0.2);color:var(--neon3)">.RAR</span>
+            <span style="font-family:var(--font-mono);font-size:9px;padding:2px 8px;border-radius:4px;background:rgba(168,85,247,0.08);border:1px solid rgba(168,85,247,0.2);color:var(--neon3)">.DOC</span>
+            <span style="font-family:var(--font-mono);font-size:9px;padding:2px 8px;border-radius:4px;background:rgba(168,85,247,0.08);border:1px solid rgba(168,85,247,0.2);color:var(--neon3)">.JS</span>
           </div>
+
 
           <button class="btn btn-primary btn-scan" id="btn-scan-file" disabled
             style="opacity:0.5;cursor:not-allowed">
