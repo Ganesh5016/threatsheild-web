@@ -255,11 +255,11 @@
 
             <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(130px, 1fr));gap:10px;margin-bottom:14px">
               <div style="background:var(--bg);padding:10px;border-radius:10px;border:1px solid var(--border);text-align:center">
-                <div style="font-family:var(--font-mono);font-size:15px;font-weight:700;color:var(--neon)">192.168.1.105</div>
-                <div style="font-family:var(--font-mono);font-size:9px;color:var(--muted)">LOCAL DEVICE IP</div>
+                <div style="font-family:var(--font-mono);font-size:14px;font-weight:700;color:var(--neon)" id="net-device-ip">Detecting...</div>
+                <div style="font-family:var(--font-mono);font-size:9px;color:var(--muted)">YOUR PUBLIC DEVICE IP</div>
               </div>
               <div style="background:var(--bg);padding:10px;border-radius:10px;border:1px solid var(--border);text-align:center">
-                <div style="font-family:var(--font-mono);font-size:15px;font-weight:700;color:var(--neon2)">14ms</div>
+                <div style="font-family:var(--font-mono);font-size:15px;font-weight:700;color:var(--neon2)" id="net-device-ping">12ms</div>
                 <div style="font-family:var(--font-mono);font-size:9px;color:var(--muted)">PING LATENCY</div>
               </div>
               <div style="background:var(--bg);padding:10px;border-radius:10px;border:1px solid var(--border);text-align:center">
@@ -267,6 +267,7 @@
                 <div style="font-family:var(--font-mono);font-size:9px;color:var(--muted)">LEAKS / MALICIOUS IP</div>
               </div>
             </div>
+
 
             <div style="font-family:var(--font-mono);font-size:10px;color:var(--muted);margin-bottom:8px;letter-spacing:1px">ACTIVE INBOUND & OUTBOUND IP PACKET CONNECTIONS:</div>
             <div id="network-packets-stream" style="display:flex;flex-direction:column;gap:6px;font-family:var(--font-mono);font-size:11px">
