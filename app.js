@@ -38,6 +38,19 @@ document.querySelectorAll('.scan-tab').forEach(tab => {
   });
 });
 
+// ── Feature card navigation to Scanner ────────────────────
+document.querySelectorAll('[data-tab-nav]').forEach(card => {
+  card.addEventListener('click', () => {
+    const tabName = card.dataset.tabNav;
+    const targetTab = document.querySelector(`.scan-tab[data-t="${tabName}"]`);
+    if (targetTab) {
+      targetTab.click();
+      document.getElementById('scanner')?.scrollIntoView({ behavior: 'smooth' });
+    }
+  });
+});
+
+
 // ── Quick APK buttons ──────────────────────────────────────
 document.querySelectorAll('.quick-btn').forEach(btn => {
   btn.addEventListener('click', () => {

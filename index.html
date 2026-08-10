@@ -238,26 +238,37 @@
       <div class="section-badge">🛡️ Features</div>
       <h2 class="section-title">Everything You Need to<br/><span class="gradient-text">Stay Protected</span></h2>
 
-      <div class="features-grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
-        <div class="feature-card">
+      <div class="features-grid" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));">
+        <div class="feature-card" data-tab-nav="url" style="cursor:pointer">
           <div class="feature-icon">🔗</div>
           <h3>URL Scanner</h3>
           <p>Checks every link against VirusTotal (70+ engines), Google Safe Browsing, URLScan.io and PhishTank before you click.</p>
           <div class="feature-tags"><span>VirusTotal</span><span>Safe Browsing</span><span>AI Heuristics</span></div>
+          <div style="margin-top:14px;font-family:var(--font-display);font-size:11px;color:var(--neon);font-weight:700;display:flex;align-items:center;gap:4px">⚡ OPEN URL SCANNER →</div>
         </div>
-        <div class="feature-card">
+        <div class="feature-card" data-tab-nav="file" style="cursor:pointer">
           <div class="feature-icon">📁</div>
           <h3>File Scanner</h3>
           <p>Upload any file — APK, EXE, PDF, ZIP. Our YARA rules engine and entropy analysis detect malware before it executes.</p>
           <div class="feature-tags"><span>YARA Rules</span><span>Entropy Analysis</span><span>VT Hash</span></div>
+          <div style="margin-top:14px;font-family:var(--font-display);font-size:11px;color:var(--neon2);font-weight:700;display:flex;align-items:center;gap:4px">📁 OPEN FILE SCANNER →</div>
         </div>
-        <div class="feature-card">
-          <div class="feature-icon">🧪</div>
-          <h3>AI Sandbox</h3>
-          <p>Threats are isolated in a virtual machine. The VM self-heals after every threat — your real device never gets infected.</p>
-          <div class="feature-tags"><span>VM Isolation</span><span>Self-Healing</span><span>Behavioral AI</span></div>
+        <div class="feature-card" data-tab-nav="email" style="cursor:pointer">
+          <div class="feature-icon">📧</div>
+          <h3>Email Guard</h3>
+          <p>Analyzes sender addresses and email subjects to identify phishing attempts and credential stealing schemes.</p>
+          <div class="feature-tags"><span>Phishing Check</span><span>Sender Analysis</span><span>SPF/DKIM</span></div>
+          <div style="margin-top:14px;font-family:var(--font-display);font-size:11px;color:var(--neon3);font-weight:700;display:flex;align-items:center;gap:4px">📧 OPEN EMAIL SCANNER →</div>
+        </div>
+        <div class="feature-card" data-tab-nav="apk" style="cursor:pointer">
+          <div class="feature-icon">📦</div>
+          <h3>APK Package Guard</h3>
+          <p>Deep inspects Android package names, APK permissions, and binary signatures before installation.</p>
+          <div class="feature-tags"><span>APK Analysis</span><span>Package Guard</span><span>Permissions</span></div>
+          <div style="margin-top:14px;font-family:var(--font-display);font-size:11px;color:var(--warn);font-weight:700;display:flex;align-items:center;gap:4px">📦 OPEN APK SCANNER →</div>
         </div>
       </div>
+
 
     </div>
   </section>
