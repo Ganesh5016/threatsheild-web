@@ -39,17 +39,20 @@ document.querySelectorAll('.scan-tab').forEach(tab => {
 });
 
 
-// ── Feature card navigation to Scanner ────────────────────
-document.querySelectorAll('[data-tab-nav]').forEach(card => {
-  card.addEventListener('click', () => {
+// ── Feature card navigation to Scanner (Event Delegation) ──
+document.addEventListener('click', (e) => {
+  const card = e.target.closest('[data-tab-nav]');
+  if (card) {
+    e.preventDefault();
     const tabName = card.dataset.tabNav;
     const targetTab = document.querySelector(`.scan-tab[data-t="${tabName}"]`);
     if (targetTab) {
       targetTab.click();
-      document.getElementById('scanner')?.scrollIntoView({ behavior: 'smooth' });
+      document.getElementById('scanner')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
-  });
+  }
 });
+
 
 
 // ── Quick APK buttons ──────────────────────────────────────
