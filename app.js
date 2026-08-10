@@ -25,18 +25,22 @@ document.querySelectorAll('.nav-links a').forEach(a => {
   });
 });
 
-// ── Scanner tabs ───────────────────────────────────────────
-document.querySelectorAll('.scan-tab').forEach(tab => {
-  tab.addEventListener('click', () => {
+// ── Scanner tabs (Event Delegation) ─────────────────────────
+document.addEventListener('click', (e) => {
+  const tab = e.target.closest('.scan-tab');
+  if (tab) {
     document.querySelectorAll('.scan-tab').forEach(t => t.classList.remove('active'));
     tab.classList.add('active');
+    const targetName = tab.dataset.t;
     ['url','file','email','apk','network'].forEach(t => {
       const el = document.getElementById('tab-' + t);
-      if (el) el.style.display = t === tab.dataset.t ? 'block' : 'none';
+      if (el) el.style.display = t === targetName ? 'block' : 'none';
     });
-    document.getElementById('scan-result').style.display = 'none';
-  });
+    const resultEl = document.getElementById('scan-result');
+    if (resultEl) resultEl.style.display = 'none';
+  }
 });
+
 
 
 // ── Feature card navigation to Scanner (Event Delegation) ──
