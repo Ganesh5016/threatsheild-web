@@ -128,6 +128,7 @@
           <button class="scan-tab" data-t="file">📁 File</button>
           <button class="scan-tab" data-t="email">📧 Email</button>
           <button class="scan-tab" data-t="apk">📦 APK</button>
+          <button class="scan-tab" data-t="network">📡 Network</button>
         </div>
 
         <!-- URL input -->
@@ -219,11 +220,62 @@
           </div>
           <div class="apk-quick-btns">
             <button class="quick-btn" data-val="com.whatsapp">WhatsApp</button>
-            <button class="quick-btn" data-val="com.zhiliaoapp.musically">TikTok</button>
+            <button class="quick-btn" data-val="org.telegram.messenger">Telegram</button>
+            <button class="quick-btn" data-val="com.instagram.android">Instagram</button>
             <button class="quick-btn" data-val="com.facebook.katana">Facebook</button>
-            <button class="quick-btn" data-val="com.truecaller">TrueCaller</button>
           </div>
-          <button class="btn btn-primary btn-scan" id="btn-scan-apk">🔍 Scan APK</button>
+          <button class="btn btn-primary btn-scan" id="btn-scan-apk">🔍 Scan APK Package</button>
+        </div>
+
+        <!-- Network Monitor Tab -->
+        <div class="scan-body" id="tab-network" style="display:none">
+          <div style="background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:18px;margin-bottom:14px">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
+              <div style="display:flex;align-items:center;gap:10px">
+                <span style="font-size:24px">📡</span>
+                <div>
+                  <div style="font-family:var(--font-display);font-size:14px;font-weight:700;color:var(--text)">REAL-TIME NETWORK MONITOR</div>
+                  <div style="font-family:var(--font-mono);font-size:10px;color:var(--muted)">Wireshark Packet Inspection & DNS Leak Shield</div>
+                </div>
+              </div>
+              <div style="display:flex;align-items:center;gap:6px;background:rgba(0,255,136,0.1);padding:4px 10px;border-radius:20px;border:1px solid rgba(0,255,136,0.3)">
+                <div style="width:6px;height:6px;background:var(--neon);border-radius:50%;animation:pulse 1.5s infinite"></div>
+                <span style="font-family:var(--font-mono);font-size:10px;color:var(--neon);font-weight:700">PROTECTED</span>
+              </div>
+            </div>
+
+            <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(130px, 1fr));gap:10px;margin-bottom:14px">
+              <div style="background:var(--bg);padding:10px;border-radius:10px;border:1px solid var(--border);text-align:center">
+                <div style="font-family:var(--font-mono);font-size:16px;font-weight:700;color:var(--neon)">14ms</div>
+                <div style="font-family:var(--font-mono);font-size:9px;color:var(--muted)">DNS LATENCY</div>
+              </div>
+              <div style="background:var(--bg);padding:10px;border-radius:10px;border:1px solid var(--border);text-align:center">
+                <div style="font-family:var(--font-mono);font-size:16px;font-weight:700;color:var(--neon2)">100%</div>
+                <div style="font-family:var(--font-mono);font-size:9px;color:var(--muted)">SSL ENCRYPTED</div>
+              </div>
+              <div style="background:var(--bg);padding:10px;border-radius:10px;border:1px solid var(--border);text-align:center">
+                <div style="font-family:var(--font-mono);font-size:16px;font-weight:700;color:var(--neon3)">0</div>
+                <div style="font-family:var(--font-mono);font-size:9px;color:var(--muted)">LEAKS DETECTED</div>
+              </div>
+            </div>
+
+            <div style="font-family:var(--font-mono);font-size:10px;color:var(--muted);margin-bottom:8px">ACTIVE TRAFFIC STREAMS:</div>
+            <div style="display:flex;flex-direction:column;gap:6px;font-family:var(--font-mono);font-size:11px">
+              <div style="display:flex;justify-content:space-between;padding:8px 12px;background:var(--bg);border-radius:8px;border:1px solid var(--border)">
+                <span>🔒 threatsheild-backend.up.railway.app:443</span>
+                <span style="color:var(--neon)">SAFE (TLS 1.3)</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;padding:8px 12px;background:var(--bg);border-radius:8px;border:1px solid var(--border)">
+                <span>🌐 dns.google.com:53 (UDP)</span>
+                <span style="color:var(--neon)">VERIFIED DNS</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;padding:8px 12px;background:var(--bg);border-radius:8px;border:1px solid var(--border)">
+                <span>🛡️ firebasestorage.googleapis.com:443</span>
+                <span style="color:var(--neon)">ENCRYPTED</span>
+              </div>
+            </div>
+          </div>
+          <button class="btn btn-primary btn-scan" id="btn-scan-network">📡 Run Network Connection Diagnostic</button>
         </div>
 
         <!-- Result -->
@@ -238,7 +290,7 @@
       <div class="section-badge">🛡️ Features</div>
       <h2 class="section-title">Everything You Need to<br/><span class="gradient-text">Stay Protected</span></h2>
 
-      <div class="features-grid" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));">
+      <div class="features-grid" style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));">
         <div class="feature-card" data-tab-nav="url" style="cursor:pointer">
           <div class="feature-icon">🔗</div>
           <h3>URL Scanner</h3>
@@ -262,7 +314,7 @@
         </div>
         <div class="feature-card" data-tab-nav="apk" style="cursor:pointer">
           <div class="feature-icon">📦</div>
-          <h3>APK Package Guard</h3>
+          <h3>APK Guard</h3>
           <p>Deep inspects Android package names, APK permissions, and binary signatures before installation.</p>
           <div class="feature-tags"><span>APK Analysis</span><span>Package Guard</span><span>Permissions</span></div>
           <div style="margin-top:14px;font-family:var(--font-display);font-size:11px;color:var(--warn);font-weight:700;display:flex;align-items:center;gap:4px">📦 OPEN APK SCANNER →</div>

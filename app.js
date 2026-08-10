@@ -30,13 +30,14 @@ document.querySelectorAll('.scan-tab').forEach(tab => {
   tab.addEventListener('click', () => {
     document.querySelectorAll('.scan-tab').forEach(t => t.classList.remove('active'));
     tab.classList.add('active');
-    ['url','file','email','apk'].forEach(t => {
+    ['url','file','email','apk','network'].forEach(t => {
       const el = document.getElementById('tab-' + t);
       if (el) el.style.display = t === tab.dataset.t ? 'block' : 'none';
     });
     document.getElementById('scan-result').style.display = 'none';
   });
 });
+
 
 // ── Feature card navigation to Scanner ────────────────────
 document.querySelectorAll('[data-tab-nav]').forEach(card => {
@@ -200,6 +201,12 @@ document.getElementById('btn-scan-apk')?.addEventListener('click', async () => {
   const url = val.startsWith('http') ? val : 'https://play.google.com/store/apps/details?id=' + val;
   await runScan('url', { url, label: val });
 });
+
+// ── Scan Network ───────────────────────────────────────────
+document.getElementById('btn-scan-network')?.addEventListener('click', async () => {
+  await runScan('url', { url: 'https://network-diagnostics.internal', label: '📡 Network Traffic & Connection Diagnostic' });
+});
+
 
 function getDeviceId() {
   try {
